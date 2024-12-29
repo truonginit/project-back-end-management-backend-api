@@ -1,11 +1,18 @@
+// require package
 const express = require('express');
+
+// require config
+const { app: { port } } = require('./config/system.config');
+
+// initialize app & port
 const app = express();
-const port = 3000;
+const PORT = port;
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
-})
+});
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-})
+// listen server
+app.listen(PORT, () => {
+  console.log(`Khởi Động Ứng Dụng ::: Management BackEnd API`);
+});
