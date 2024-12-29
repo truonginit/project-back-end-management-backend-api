@@ -4,13 +4,25 @@ const express = require('express');
 // require config
 const { app: { port } } = require('./config/system.config');
 
+// require database
+const InstanceMongo = require('./databases/mongodb');
+
+// require router
+const adminRouter = require('./routes/admin/index.route');
+
+// initialize database
+InstanceMongo.connect();
+
 // initialize app & port
 const app = express();
 const PORT = port;
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
+// initialize body-parser
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+
+// initialize router
+adminRouter(app);
 
 // listen server
 app.listen(PORT, () => {
