@@ -4,10 +4,10 @@ const BookModel = require('../models/book.model');
 const StationeryModel = require('../models/stationery.model');
 
 // core response
-const { BadRequestError } = require('../core/error.response');
+const { BadRequestError, NotFoundError } = require('../core/error.response');
 
 // repo
-const { getAllProductByQuery, getDetailProductBySlug } = require('../models/repositories/product.repo');
+const { getAllProductByQuery, getDetailProductBySlug, getDetailProductById } = require('../models/repositories/product.repo');
 
 // utils
 const { parseObjectIdMongoose, pickFieldInObject } = require('../utils/index.util');
@@ -113,7 +113,6 @@ class ProductFactoryService {
     */
     static factory = {};
 
-
     /**
      * @description Function này dùng cho việc khởi tạo Key-Class mà không phải mở code ra
      * @param {String} key 
@@ -189,6 +188,29 @@ class ProductFactoryService {
 
         // response
         return pickFieldInObject({object: product, field: fieldPick});
+    }
+
+    /**
+     * @description Xóa mềm một sản phẩm
+     * @param {String} productId 
+     * @return 
+    */
+    static deleteSoftOneProduct = async ({ productId }) => {
+        // Kiểm tra xem có tồn tại sản phẩm này không
+        const select = [
+            'product_name',
+            'product_status',
+            'product_isDeleted'
+        ];
+
+        const foundProduct = await getDetailProductById({ productId, select, isLean: false });
+
+        if(!foundProduct) throw new NotFoundError('Không tìm thấy sản phẩm này');
+
+        foundProduct.product_status    = 'inactive';
+        foundProduct.product_isDeleted = true;
+
+        return await foundProduct.save();
     }
 }
 

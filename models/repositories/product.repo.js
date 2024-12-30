@@ -2,7 +2,7 @@
 const ProductModel = require('../product.model');
 
 // utils
-const { unSelectFieldInMongoose, removeFieldNullOrUndefined } = require('../../utils/index.util');
+const { unSelectFieldInMongoose, removeFieldNullOrUndefined, parseObjectIdMongoose, selectFieldInMongoose } = require('../../utils/index.util');
 
 /**
  * @description Lấy danh sách sản phẩm theo query
@@ -30,7 +30,7 @@ module.exports.getAllProductByQuery = async ({ status, isDeleted, unSelect = [] 
  * @param {Array}  unSelect 
  * @return
 */
-module.exports.getDetailProductBySlug = async ({ slug, status, unSelect = [] }) => {
+module.exports.getDetailProductBySlug = async ({ slug, status, unSelect = [], isLean = true }) => {
     const filter = {
         product_slug: slug,
         product_status: status
@@ -38,5 +38,18 @@ module.exports.getDetailProductBySlug = async ({ slug, status, unSelect = [] }) 
 
     return await ProductModel.findOne(removeFieldNullOrUndefined(filter))
                              .select(unSelectFieldInMongoose(unSelect))
-                             .lean();
+                             .lean(isLean);
+}
+
+/**
+ * @description Xóa mềm một sản phẩm
+ * @param {String}  productId 
+ * @param {Array}   select 
+ * @param {Boolean} isLean 
+ * @return 
+*/
+module.exports.getDetailProductById = async ({ productId, select, isLean = true }) => {
+    return await ProductModel.findOne({ _id: parseObjectIdMongoose(productId) })
+                             .select(selectFieldInMongoose(select))
+                             .lean(isLean)
 }

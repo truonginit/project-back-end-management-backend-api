@@ -65,3 +65,16 @@ module.exports.changeStatusOfOneProduct = async (req, res, next) => {
         metadata: await ProductFactoryService.changeStatusOfOneProduct(req.params)
     }).send(res);  
 }
+
+// [DELETE] /admin/products/delete-soft/:productId
+/**
+ * @description Xóa mềm một sản phẩm
+ * @param {String} productId 
+ * @return {JSON}
+*/
+module.exports.deleteSoftOneProduct = async (req, res, next) => {
+    new SuccessResponse({
+        message: 'Xóa mềm một sản phẩm',
+        metadata: await ProductFactoryService.deleteSoftOneProduct(req.params)
+    }).send(res);  
+}
