@@ -11,7 +11,7 @@ const asyncHandler = require('../../helpers/asyncHandler.helper');
 const router = express.Router();
 
 // [GET]
-
+router.get('/', asyncHandler(accountController.findAllAccount));
 
 // [POST]
 router.post('/create', asyncHandler(accountController.createAccount));

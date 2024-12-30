@@ -21,3 +21,21 @@ module.exports.createAccount = async (req, res, next) => {
         metadata: await AccountService.createAccount(req.body)
     }).send(res);
 }
+
+// [GET] /admin/accounts/
+/**
+ * @description Tìm kiếm tài khoản quản trị (theo query)
+ * @param {String}  status
+ * @param {Boolean} isDeleted,
+ * @param {Array}   select 
+ * @return {JSON}
+*/
+module.exports.findAllAccount = async (req, res, next) => {
+    new SuccessResponse({
+        message: 'Tìm toàn bộ tài khoản quản trị theo query',
+        metadata: await AccountService.findAllAccount({
+            ...req.query,
+            select: ['account_name', 'account_email', 'account_tel', 'account_avatar']
+        })
+    }).send(res);
+}

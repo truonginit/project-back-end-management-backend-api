@@ -2,7 +2,7 @@
 const AccountModel = require('../models/account.model');
 
 // repository
-const { isEmailExits } = require('../models/repositories/account.repo');
+const { isEmailExits, findAllAccount } = require('../models/repositories/account.repo');
 
 // core response
 const { BadRequestError } = require('../core/error.response');
@@ -73,6 +73,16 @@ class AccountService {
         return {
             account: pickFieldInObject({ object: newAccount, field: fieldForPick })
         }
+    }
+
+    /**
+     * @description Tìm tài khoản quản trị (theo query)
+     * @param {String}  status
+     * @param {Boolean} isDeleted,
+     * @param {Array}   select 
+    */
+    static findAllAccount = async ({ status, isDeleted, select = [] }) => {
+        return await findAllAccount({ status, isDeleted, select });
     }
 }
 
