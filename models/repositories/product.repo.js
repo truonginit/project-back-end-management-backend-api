@@ -53,3 +53,10 @@ module.exports.getDetailProductById = async ({ productId, select, isLean = true 
                              .select(selectFieldInMongoose(select))
                              .lean(isLean)
 }
+
+
+module.exports.updateOneProduct = async ({ payload, model }) => {
+    // update các thuộc tính của sản phẩm Sách
+    const { filter, update, options } = payload;
+    return await model.findOneAndUpdate(filter, update, options);
+}

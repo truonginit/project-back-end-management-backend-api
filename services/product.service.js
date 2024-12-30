@@ -7,53 +7,67 @@ const StationeryModel = require('../models/stationery.model');
 const { BadRequestError, NotFoundError } = require('../core/error.response');
 
 // repo
-const { getAllProductByQuery, getDetailProductBySlug, getDetailProductById } = require('../models/repositories/product.repo');
+const { 
+    getAllProductByQuery, 
+    getDetailProductBySlug, 
+    getDetailProductById,
+    updateOneProduct
+} = require('../models/repositories/product.repo');
 
 // utils
-const { parseObjectIdMongoose, pickFieldInObject } = require('../utils/index.util');
+const { 
+    parseObjectIdMongoose, 
+    pickFieldInObject, 
+    removeFieldNullOrUndefined 
+} = require('../utils/index.util');
 
 // class 
 class Product {
-    constructor({ 
-        name,
-        desc, 
-        thumb, 
-        quantity,
-        price, 
-        provider, 
-        type,
-        accountId, // id của tài khoản tạo sản phẩm này
-        productId, // id document Book vừa được tạo (tức bản ghi attributes)
-        attributes, 
+    constructor({ name, desc, thumb, quantity, price, provider, type,
+        accountId, // id của tài khoản tạo sản phẩm này 
+        attributes,    
     }) {
-        this.name      = name;
-        this.desc      = desc;
-        this.thumb     = thumb;
-        this.quantity  = quantity;
-        this.price     = price;
-        this.type      = type;
-        this.accountId = accountId;
-        this.productId = productId;
-        this.attributes = attributes;
+        this.product_name             = name;
+        this.product_description      = desc;
+        this.product_thumb            = thumb;
+        this.product_quantity         = quantity;
+        this.product_price            = price;
+        this.product_type             = type;
+        this.accountId                = accountId;
+        // this.productId = productId;
+        this.product_attributes       = attributes;
     }
 
     /**
      * @description Tạo mới sản phẩm => thông tin chung của 1 sản phẩm
     */
-    async createProduct () {
+    async createProduct ({ productId }) {
         // console.log('Class Product:::Func createBook:::', this);
 
         return await ProductModel.create({
-            _id: this.productId,
-            product_name: this.name,
-            product_description: this.desc,
-            product_thumb: this.thumb,
-            product_quantity: this.quantity,
-            product_price: this.price,
-            product_type: this.type,
-            product_attributes: this.attributes,
-            product_accountId: this.accountId
+            _id: parseObjectIdMongoose(productId),
+            ...removeFieldNullOrUndefined(this)
         })
+    }
+
+    /**
+     * @description Chỉnh sửa thông tin chung của 1 sản phẩm
+     * @param {*} param0 
+     * @return {JSON}
+     */
+    async updateOneProduct ({ productId }) {
+        const payloadUpdate = {
+            filter: { _id: parseObjectIdMongoose(productId) },
+            update: removeFieldNullOrUndefined(this),
+            options: { new: true }
+        };
+
+        // console.log('payload::',payloadUpdate);
+
+        const updateProduct =  await updateOneProduct({ payload: payloadUpdate, model: ProductModel });
+
+        // chỉ cần response lại các trường dữ liệu đã update
+        return pickFieldInObject({object: updateProduct, field: Object.keys(this)});
     }
 }
 
@@ -67,15 +81,31 @@ class Book extends Product{
         // Lưu những thuộc tính của Sách vào BookModel
         const newBook = await BookModel.create(this.attributes);
 
-        this.productId = newBook._id; // sử dụng id
-
         if(!newBook) throw new BadRequestError(''); // tạo thất bại
 
         // Lưu những thông tin chung sản phẩm (sách) vào ProductModel
-        const newProduct = await super.createProduct();
+        const newProduct = await super.createProduct({ productId: newBook._id});
 
         // Response
         return newProduct;
+    }
+
+    /**
+     * @description chỉnh sửa thuộc tính (attributes) của sách 
+    */
+    async updateOneProduct ({ productId }) {
+        // update các thuộc tính của sản phẩm Sách
+        const payloadUpdate = {
+            filter: { _id: parseObjectIdMongoose(productId) },
+            update: removeFieldNullOrUndefined(this.product_attributes),
+            options: { new: true }
+        };
+
+        const updateBook = await updateOneProduct({ payload: payloadUpdate, model: BookModel });
+        if(!updateBook) throw new BadRequestError('Chỉnh sửa sản phẩm thất bại');
+
+        // update các thông tin của chung sản phẩm
+        return await super.updateOneProduct({ productId });
     }
 }
 
@@ -87,17 +117,33 @@ class Stationery extends Product {
         // console.log('Class Stationery:::Func createProduct:::', this);
 
         // Lưu những thuộc tính của Sách vào StationeryModel
-        const newStationery = await StationeryModel.create(this.attributes);
+        const newStationery = await StationeryModel.create(this.product_attributes);
 
-        this.productId = newStationery._id; // sử dụng id
-
-        if(!newStationery) throw new BadRequestError(''); // tạo thất bại
+        if(!newStationery) throw new BadRequestError('Tạo sản phẩm mới thất bại'); // tạo thất bại
 
         // Lưu những thông tin chung sản phẩm (sách) vào ProductModel
-        const newProduct = await super.createProduct();
+        const newProduct = await super.createProduct({productId: newStationery._id});
 
         // Response
         return newProduct;
+    }
+
+    /**
+     * @description chỉnh sửa thuộc tính (attributes) của văn phòng phẩm 
+    */
+    async updateOneProduct ({ productId }) {
+        // update các thuộc tính của sản phẩm Sách
+        const payloadUpdate = {
+            filter: { _id: parseObjectIdMongoose(productId) },
+            update: removeFieldNullOrUndefined(this.product_attributes),
+            options: { new: true }
+        };
+
+        const updateBook = await updateOneProduct({ payload: payloadUpdate, model: StationeryModel });
+        if(!updateBook) throw new BadRequestError('Chỉnh sửa sản phẩm thất bại');
+
+        // update các thông tin của chung sản phẩm
+        return await super.updateOneProduct({ productId });
     }
 }
 
@@ -131,6 +177,7 @@ class ProductFactoryService {
     static createProduct = async ( {type, payload} ) => {
         // Lấy class của sản phẩm muốn tạo
         const classRef = ProductFactoryService.factory[type];
+        if(!classRef) throw new NotFoundError('Không tìm thấy loại sản phẩm này');
 
         // console.log('classRef::', classRef);
 
@@ -212,6 +259,15 @@ class ProductFactoryService {
 
         return await foundProduct.save();
     }
+
+    static updateOneProduct = async ({ type, productId, payload }) => {
+        // lấy class theo type của sản phẩm
+        const classRef = ProductFactoryService.factory[type];
+        if(!classRef) throw new NotFoundError('Không tìm thấy loại sản phẩm này');
+        
+        // console.log('payload:::', payload);
+        return await new classRef(payload).updateOneProduct({ productId });
+    }
 }
 
 
@@ -222,5 +278,5 @@ class ProductFactoryService {
 ProductFactoryService.addKeyClassIntoFactory({key: 'Book', classRef: Book});
 ProductFactoryService.addKeyClassIntoFactory({key: 'Stationery', classRef: Stationery});
 
-
+// exports
 module.exports = ProductFactoryService;

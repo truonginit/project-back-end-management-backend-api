@@ -78,3 +78,15 @@ module.exports.deleteSoftOneProduct = async (req, res, next) => {
         metadata: await ProductFactoryService.deleteSoftOneProduct(req.params)
     }).send(res);  
 }
+
+// [PATCH] /admin/products/update-one/:productId
+module.exports.updateOneProduct = async (req, res, next) => {
+    new SuccessResponse({
+        message: 'Cập nhật một sản phẩm',
+        metadata: await ProductFactoryService.updateOneProduct({
+            type: req.body.type,
+            productId: req.params.productId,
+            payload: req.body
+        })
+    }).send(res);  
+}

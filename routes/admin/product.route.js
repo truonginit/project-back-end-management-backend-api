@@ -18,9 +18,9 @@ router.get('/detail/:slug', asyncHandler(productController.getDetailProductBySlu
 // [POST]
 router.post('/create', asyncHandler(productController.createProduct));
 
-
 // [PATCH]
 router.patch('/change-status/:productId/:status', asyncHandler(productController.changeStatusOfOneProduct));
+router.patch('/update-one/:productId', asyncHandler(productController.updateOneProduct));
 
 // [DELETE]
 router.delete('/delete-soft/:productId', asyncHandler(productController.deleteSoftOneProduct));
