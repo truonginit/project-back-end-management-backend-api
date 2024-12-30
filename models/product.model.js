@@ -4,6 +4,7 @@
 
 // require package
 const mongoose = require('mongoose');
+const slugify = require('slugify');
 
 // Document Name và Collection Name
 const DOCUMENT_NAME   = 'Product';
@@ -18,7 +19,7 @@ const productSchema = new mongoose.Schema({
     product_description: { type: String, required: true },
     product_thumb: { type: Array, default: [] }, // hình ảnh của sản phẩm
     product_quantity: { type: Number, required: true }, // số lượng của sản phẩm
-    product_slug : { type: String, required: true },
+    product_slug : { type: String },
 
     product_price: { type: Number, required: true },
     
@@ -29,8 +30,9 @@ const productSchema = new mongoose.Schema({
         enum: ['active', 'inactive', 'pending']
     },
 
-    // nhà chung cấp, nhà xuất bản => về sau type sẽ là ObjectId và Ref đến Provider
-    product_provider: { type: String, required: true }, 
+    product_isDeleted: { type: Boolean, default: false },
+    
+    product_accountId: { type: mongoose.Schema.Types.ObjectId, ref: 'Account' },
     
     // loại sản phẩm => cái này sẽ hỗ trợ cho việc query
     product_type: { 
@@ -60,6 +62,12 @@ const productSchema = new mongoose.Schema({
     product_attributes: { type: mongoose.Schema.Types.Mixed, required: true },
 },{
     timestamps: true
+});
+
+// pre-hook: trước khi create, save document thì nó sẽ chạy vào đây => tạo slug cho sản phẩm
+productSchema.pre('save', function( next ) {
+    this.product_slug = slugify(this.product_name, { lower: true }) + '-' + Date.now();
+    next();
 });
 
 //Export the model

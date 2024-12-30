@@ -16,6 +16,7 @@ class Product {
         price, 
         provider, 
         type,
+        accountId, // id của tài khoản tạo sản phẩm này
         productId, // id document Book vừa được tạo (tức bản ghi attributes)
         attributes, 
     }) {
@@ -24,8 +25,8 @@ class Product {
         this.thumb     = thumb;
         this.quantity  = quantity;
         this.price     = price;
-        this.provider  = provider;
         this.type      = type;
+        this.accountId = accountId;
         this.productId = productId;
         this.attributes = attributes;
     }
@@ -43,10 +44,9 @@ class Product {
             product_thumb: this.thumb,
             product_quantity: this.quantity,
             product_price: this.price,
-            product_provider: this.provider,
             product_type: this.type,
             product_attributes: this.attributes,
-            product_slug: this.name
+            product_accountId: this.accountId
         })
     }
 }
@@ -78,7 +78,7 @@ class Stationery extends Product {
      * @description tạo, lưu những thuộc tính (attributes) của văn phòng phẩm 
     */
     async createProduct () {
-        console.log('Class Stationery:::Func createProduct:::', this);
+        // console.log('Class Stationery:::Func createProduct:::', this);
 
         // Lưu những thuộc tính của Sách vào StationeryModel
         const newStationery = await StationeryModel.create(this.attributes);

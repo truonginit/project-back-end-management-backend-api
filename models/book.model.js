@@ -12,19 +12,15 @@ const COLLECTION_NAME = 'books';
 // Khai báo schema
 const bookSchema = new mongoose.Schema({
     // _id này mongoose sẽ tự generate ra và dùng _id này để tạo sản phẩm
-
-    // tác giả => sau này sẽ ref đến collection authors
-    author: { type: String, required: true },
-
+    provider: { type: String, required: true },  // nhà chung cấp, nhà xuất bản => về sau type sẽ là ObjectId và Ref đến Provider
+    author: { type: String, required: true }, // tác giả => sau này sẽ ref đến collection authors
     // loại bìa (bìa cứng, bìa mềm)
     cover: { 
         type: String, 
         required: true, 
-        enum: ['hardcover ', 'paperback'] // bìa cứng, bìa mềm
+        enum: ['hard ', 'soft'] // bìa cứng, bìa mềm
     },
-
-    lang: { type: String, required: true, enum: ['Tiếng Việt', 'Tiếng Anh'] },
-
+    lang: { type: String, required: true, enum: ['vi', 'en'] }, // tiếng việt, tiếng anh
     accountId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Account' } // tài khoản tạo sản phẩm này
 },{
     timestamps: true
