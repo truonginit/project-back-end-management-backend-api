@@ -6,6 +6,9 @@ const StationeryModel = require('../models/stationery.model');
 // core response
 const { BadRequestError } = require('../core/error.response');
 
+// repo
+const { getAllProductByQuery } = require('../models/repositories/product.repo');
+
 // class 
 class Product {
     constructor({ 
@@ -131,6 +134,16 @@ class ProductFactoryService {
 
         // Tạo mới
         return await new classRef(payload).createProduct();
+    }
+
+    /**
+     * @description Lấy danh sách sản phẩm theo query
+     * @param {String} status 
+     * @param {Boolean} isDeleted 
+    */
+    static getAllProductByQuery = async({ status, isDeleted }) => {
+        const unSelect = [''];
+        return await getAllProductByQuery({ status, isDeleted });
     }
 }
 

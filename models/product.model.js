@@ -27,10 +27,10 @@ const productSchema = new mongoose.Schema({
         type: String, 
         required: true, 
         default: 'pending',
-        enum: ['active', 'inactive', 'pending']
+        enum: ['active', 'inactive', 'pending'],
     },
 
-    product_isDeleted: { type: Boolean, default: false },
+    product_isDeleted: { type: Boolean, default: false, select: false },
     
     product_accountId: { type: mongoose.Schema.Types.ObjectId, ref: 'Account' },
     
