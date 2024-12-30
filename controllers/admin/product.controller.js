@@ -51,3 +51,17 @@ module.exports.getDetailProductBySlug = async (req, res, next) => {
         })
     }).send(res);  
 }
+
+// [PATCH] /admin/products/change-status/:productId/:status
+/**
+ * @description Thay đổi trạng thái của một sản phẩm
+ * @param {String} productId 
+ * @param {String} status 
+ * @param {JSON} 
+ */
+module.exports.changeStatusOfOneProduct = async (req, res, next) => {
+    new SuccessResponse({
+        message: 'Thay đổi trạng thái của một sản phẩm',
+        metadata: await ProductFactoryService.changeStatusOfOneProduct(req.params)
+    }).send(res);  
+}

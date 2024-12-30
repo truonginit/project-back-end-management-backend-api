@@ -9,6 +9,9 @@ const { BadRequestError } = require('../core/error.response');
 // repo
 const { getAllProductByQuery, getDetailProductBySlug } = require('../models/repositories/product.repo');
 
+// utils
+const { parseObjectIdMongoose, pickFieldInObject } = require('../utils/index.util');
+
 // class 
 class Product {
     constructor({ 
@@ -158,6 +161,34 @@ class ProductFactoryService {
         const { status } = query;
         const unSelect = ['__v'];
         return await getDetailProductBySlug({ slug, status, unSelect });
+    }
+
+    /**
+     * @description Thay đổi trạng thái của một sản phẩm
+     * @param {String} productId 
+     * @param {String} status 
+     * @param {JSON} 
+     */
+    static changeStatusOfOneProduct = async ({ productId, status }) => {
+        // Kiểm tra xem trạng thái từ FrontEnd gửi về có hợp lệ không
+        const statusOfProduct = ['active', 'inactive', 'pending'];
+
+        if(!statusOfProduct.includes(status)) throw new BadRequestError('Trạng thái không hợp lệ');
+
+        const filter  = { _id: parseObjectIdMongoose(productId) };
+        const update  = { product_status: status  };
+        const options = { new: true, upsert: true };
+
+        const product =  await ProductModel.findOneAndUpdate(filter, update, options);
+        
+        // field pick
+        const fieldPick = [
+            'product_name',
+            'product_status'
+        ];
+
+        // response
+        return pickFieldInObject({object: product, field: fieldPick});
     }
 }
 

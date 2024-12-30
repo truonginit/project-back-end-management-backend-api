@@ -20,7 +20,7 @@ router.post('/create', asyncHandler(productController.createProduct));
 
 
 // [PATCH]
-
+router.patch('/change-status/:productId/:status', asyncHandler(productController.changeStatusOfOneProduct));
 
 
 // exports
