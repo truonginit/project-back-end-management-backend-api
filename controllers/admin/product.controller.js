@@ -33,3 +33,21 @@ module.exports.getAllProduct = async (req, res, next) => {
         metadata: await ProductFactoryService.getAllProductByQuery(req.query)
     }).send(res);  
 }
+
+// [GET] /admin/products/detail/:slug
+/**
+ * @description Lấy chi tiết sản phẩm theo slug
+ * @param {String} slug 
+ * @param {String} status 
+ * @param {Array}  unSelect 
+ * @return {JSON}
+*/
+module.exports.getDetailProductBySlug = async (req, res, next) => {
+    new SuccessResponse({
+        message: 'Lấy chi tiết sản phẩm',
+        metadata: await ProductFactoryService.getDetailProductBySlug({
+            params: req.params,
+            query : req.query
+        })
+    }).send(res);  
+}

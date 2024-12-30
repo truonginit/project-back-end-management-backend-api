@@ -7,7 +7,7 @@ const StationeryModel = require('../models/stationery.model');
 const { BadRequestError } = require('../core/error.response');
 
 // repo
-const { getAllProductByQuery } = require('../models/repositories/product.repo');
+const { getAllProductByQuery, getDetailProductBySlug } = require('../models/repositories/product.repo');
 
 // class 
 class Product {
@@ -144,6 +144,20 @@ class ProductFactoryService {
     static getAllProductByQuery = async({ status, isDeleted }) => {
         const unSelect = [''];
         return await getAllProductByQuery({ status, isDeleted });
+    }
+
+    /**
+     * @description Lấy chi tiết sản phẩm theo slug
+     * @param {String} slug 
+     * @param {String} status 
+     * @param {Array}  unSelect 
+     * @return
+    */
+    static getDetailProductBySlug = async ({ params, query }) => {
+        const { slug }   = params;
+        const { status } = query;
+        const unSelect = ['__v'];
+        return await getDetailProductBySlug({ slug, status, unSelect });
     }
 }
 
