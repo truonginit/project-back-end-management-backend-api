@@ -9,6 +9,7 @@ const InstanceMongo = require('./databases/mongodb');
 
 // require router
 const adminRouter = require('./routes/admin/index.route');
+const errorRouter = require('./routes/error/error.route');
 
 // initialize database
 InstanceMongo.connect();
@@ -23,6 +24,7 @@ app.use(express.urlencoded({extended: true}));
 
 // initialize router
 adminRouter(app);
+errorRouter(app);
 
 // listen server
 app.listen(PORT, () => {

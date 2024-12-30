@@ -4,6 +4,9 @@ const express = require('express');
 // controller
 const accountController = require('../../controllers/admin/account.controller');
 
+// helper
+const asyncHandler = require('../../helpers/asyncHandler.helper');
+
 // Tạo instance route
 const router = express.Router();
 
@@ -11,7 +14,7 @@ const router = express.Router();
 
 
 // [POST]
-router.post('/create', accountController.createAccount);
+router.post('/create', asyncHandler(accountController.createAccount));
 
 
 // [PATCH]
