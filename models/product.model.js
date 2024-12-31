@@ -38,7 +38,7 @@ const productSchema = new mongoose.Schema({
     product_type: { 
         type: String, 
         required: true,
-        enum: ['Book', 'Stationery']
+        // enum: ['Book', 'Stationery']
     },
 
     // thuộc tính của sản phẩm
