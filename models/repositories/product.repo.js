@@ -54,7 +54,11 @@ module.exports.getDetailProductById = async ({ productId, select, isLean = true 
                              .lean(isLean)
 }
 
-
+/**
+ * @description Chỉnh sửa 1 sản phẩm, phương thức kết hợp atomic
+ * @param {*} param0 
+ * @returns 
+*/
 module.exports.updateOneProduct = async ({ payload, model }) => {
     // update các thuộc tính của sản phẩm Sách
     const { filter, update, options } = payload;

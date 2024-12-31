@@ -12,7 +12,6 @@ const router = express.Router();
 
 // [GET]
 router.get('/', asyncHandler(productController.getAllProduct));
-
 router.get('/detail/:slug', asyncHandler(productController.getDetailProductBySlug));
 
 // [POST]

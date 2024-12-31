@@ -260,6 +260,13 @@ class ProductFactoryService {
         return await foundProduct.save();
     }
 
+    /**
+     * @description Chỉnh sửa một sản phẩm
+     * @param {String} type 
+     * @param {ObjectId} productId 
+     * @param {Object} payload 
+     * @return {JSON}
+    */
     static updateOneProduct = async ({ type, productId, payload }) => {
         // lấy class theo type của sản phẩm
         const classRef = ProductFactoryService.factory[type];

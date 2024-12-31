@@ -4,23 +4,6 @@ const ProductFactoryService = require('../../services/product.service');
 // core response
 const { SuccessResponse } = require('../../core/success.response');
 
-// [POST] /admin/products/create
-/**
- * @description Function này sẽ tạo sản phẩm 
- * @param {String} type giúp lấy ra class tương ứng với sản phẩm muốn tạo
- * @param {Object} payload 
- * @returns 
-*/
-module.exports.createProduct = async (req, res, next) => {
-    new SuccessResponse({
-        message: 'Tạo mới sản phẩm thành công',
-        metadata: await ProductFactoryService.createProduct({
-            type: req.body.type,
-            payload: req.body
-        })
-    }).send(res);
-}
-
 // [GET] /admin/products/
 /**
  * @description Lấy danh sách sản phẩm theo query
@@ -52,6 +35,23 @@ module.exports.getDetailProductBySlug = async (req, res, next) => {
     }).send(res);  
 }
 
+// [POST] /admin/products/create
+/**
+ * @description Function này sẽ tạo sản phẩm 
+ * @param {String} type giúp lấy ra class tương ứng với sản phẩm muốn tạo
+ * @param {Object} payload 
+ * @returns 
+*/
+module.exports.createProduct = async (req, res, next) => {
+    new SuccessResponse({
+        message: 'Tạo mới sản phẩm thành công',
+        metadata: await ProductFactoryService.createProduct({
+            type: req.body.type,
+            payload: req.body
+        })
+    }).send(res);
+}
+
 // [PATCH] /admin/products/change-status/:productId/:status
 /**
  * @description Thay đổi trạng thái của một sản phẩm
@@ -63,6 +63,25 @@ module.exports.changeStatusOfOneProduct = async (req, res, next) => {
     new SuccessResponse({
         message: 'Thay đổi trạng thái của một sản phẩm',
         metadata: await ProductFactoryService.changeStatusOfOneProduct(req.params)
+    }).send(res);  
+}
+
+// [PATCH] /admin/products/update-one/:productId
+/**
+ * @description Chỉnh sửa một sản phẩm
+ * @param {String} type 
+ * @param {ObjectId} productId 
+ * @param {Object} payload 
+ * @return {JSON}
+ */
+module.exports.updateOneProduct = async (req, res, next) => {
+    new SuccessResponse({
+        message: 'Cập nhật một sản phẩm',
+        metadata: await ProductFactoryService.updateOneProduct({
+            type: req.body.type,
+            productId: req.params.productId,
+            payload: req.body
+        })
     }).send(res);  
 }
 
@@ -79,14 +98,3 @@ module.exports.deleteSoftOneProduct = async (req, res, next) => {
     }).send(res);  
 }
 
-// [PATCH] /admin/products/update-one/:productId
-module.exports.updateOneProduct = async (req, res, next) => {
-    new SuccessResponse({
-        message: 'Cập nhật một sản phẩm',
-        metadata: await ProductFactoryService.updateOneProduct({
-            type: req.body.type,
-            productId: req.params.productId,
-            payload: req.body
-        })
-    }).send(res);  
-}
