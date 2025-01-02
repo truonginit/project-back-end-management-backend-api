@@ -35,7 +35,8 @@ const roleSchema = new mongoose.Schema({
         type: Array, 
         default: [
             // mặc định sẽ có quyền xem (view)
-            'product_view',
+            'book_view',    // quyền xem trang quản lý sách
+            'stationery',   // quyền xem trang quản lý vật tư văn phòng
             'category_view',
             'account_view',
             'role_view'
@@ -50,6 +51,11 @@ roleSchema.pre('save', function( next ) {
     this.role_slug = slugify(this.role_name, { lower: true });
     next();
 });
+
+// roleSchema.pre('findOneAndUpdate', function( next ) {
+//     this.role_slug = slugify(this.role_name, { lower: true });
+//     next();
+// });
 
 //Export the model
 module.exports = mongoose.model(DOCUMENT_NAME, roleSchema, COLLECTION_NAME);

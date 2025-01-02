@@ -18,7 +18,7 @@ router.post('/create', asyncHandler(roleController.createNewRole));
 
 
 // [PATCH]
-
+router.patch('/update/:roleId', asyncHandler(roleController.updateRole));
 
 
 // exports

@@ -4,7 +4,7 @@ const RoleModel = require('../models/role.model');
 // repo
 const { findCategoryById } = require('../models/repositories/category.repo');
 const { findOneAccountById } = require('../models/repositories/account.repo.js');
-const { findOneRoleByName } = require('../models/repositories/role.repo.js');
+const { findOneRoleByName, findOneRoleById } = require('../models/repositories/role.repo.js');
 
 // core response
 const { BadRequestError, NotFoundError } = require('../core/error.response');
@@ -16,6 +16,10 @@ const {
     parseObjectIdMongoose,
     pickFieldInObject
 } = require('../utils/index.util');
+
+const {
+    generateSlug
+} = require('../utils/generate.util.js');
 
 // service
 class RoleService {
@@ -47,6 +51,59 @@ class RoleService {
         // select field
         const selectField = [ 'role_name', "role_description", 'role_slug' ];
         return pickFieldInObject({ object: newRole, field: selectField });
+    }
+
+    /**
+     * @description Chỉnh sửa (update) nhóm quyền
+     * @param {ObjectId} roleId 
+     * @param {Object}   payload chứa các thông tin chỉnh sửa
+     */
+    static updateRole = async ( {roleId, payload }) => {
+        const { name , description, permissions } = payload;
+
+        // kiểm tra xem ID của nhóm quyền muốn chỉnh sửa có hợp lệ không ?
+        const foundRole = await findOneRoleById({ roleId });
+        if(!foundRole) throw new NotFoundError('Không tìm thấy nhóm quyền này');
+
+        // kiểm tra xem cái tên mới của nhóm quyền có bị trùng không
+        const nameSlug = generateSlug({ name });
+        const filter = {
+            /** điều kiện tìm kiếm là 
+             *  Không phải nhóm quyền đang muốn chỉnh sửa (loại bỏ ID nhóm quyền đang chỉnh sửa)
+             *  Tên của nhóm quyền khác không bị trùng 
+            */
+            '$and': [
+                { '_id': { '$ne': roleId } },
+                { 
+                    '$or': [
+                        {'role_name': name},
+                        {'role_slug': nameSlug}
+                    ]
+                }
+            ]
+            
+
+        }
+        const isExitsRoleName = await RoleModel.findOne(filter);
+        if(isExitsRoleName) throw new NotFoundError('Tên nhóm quyền này đã được sử dụng');
+
+        // kiểm tra loại phân quyền có hợp lệ hay không - CHƯA LÀM
+        // ....
+        
+        // update...
+        const filterUpdate = { _id: parseObjectIdMongoose(roleId) };
+        const update = { 
+            role_name: name, 
+            role_description: description,
+            role_permissions: permissions,
+            role_slug: generateSlug({ name }) // cái này có thể tối ưu bằng cách thêm method cho pre-hook trong model nha
+        };
+        const options = { new: true };
+        const updatedRole = await RoleModel.findOneAndUpdate(filterUpdate, update, options); 
+
+        // select field 
+        const selectField = ['_id', 'role_name', 'role_slug', 'role_description', 'role_permissions'];
+        return pickFieldInObject({ object: updatedRole, field: selectField })
     }
 }
 
