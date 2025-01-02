@@ -11,11 +11,10 @@ const asyncHandler = require('../../helpers/asyncHandler.helper');
 const router = express.Router();
 
 // [GET]
-
+router.get('/', asyncHandler(roleController.getListRole));
 
 // [POST]
 router.post('/create', asyncHandler(roleController.createNewRole));
-
 
 // [PATCH]
 router.patch('/update/:roleId', asyncHandler(roleController.updateRole));

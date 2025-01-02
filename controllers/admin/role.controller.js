@@ -4,6 +4,20 @@ const RoleService = require('../../services/role.service');
 // core response
 const { SuccessResponse } = require('../../core/success.response');
 
+// [GET] /admin/roles/
+/**
+ * @description Lấy danh sách nhóm quyền
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
+module.exports.getListRole = async (req, res, next) => {
+    new SuccessResponse({
+        message: 'Lấy danh sách nhóm quyền',
+        metadata: await RoleService.getListRole( req.query )
+    }).send(res);
+}
+
 // [POST] /admin/roles/create
 /**
  * @description Tạo nhóm quyền mới

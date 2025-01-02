@@ -42,6 +42,11 @@ module.exports.findOneRoleByName = async ({ name }) => {
 }
 
 
+/**
+ * @description Tìm nhóm quyền theo ID
+ * @param {*} param0 
+ * @returns 
+ */
 module.exports.findOneRoleById = async ({ roleId, status, isDeleted, isLean = true }) => {
     const filter = {
         _id: parseObjectIdMongoose(roleId),
@@ -50,4 +55,13 @@ module.exports.findOneRoleById = async ({ roleId, status, isDeleted, isLean = tr
     }
 
     return await RoleModel.findOne(removeFieldNullOrUndefined(filter)).lean(isLean);
+}
+
+/**
+ * @description Lấy danh sách nhóm quyền - mặc định các nhóm quyền chưa xóa
+ * @param {*} param0 
+ * @returns 
+ */
+module.exports.getListRole = async ( filter ) => {
+    return await RoleModel.find( filter ).lean();
 }

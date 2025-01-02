@@ -4,10 +4,17 @@ const RoleModel = require('../models/role.model');
 // repo
 const { findCategoryById } = require('../models/repositories/category.repo');
 const { findOneAccountById } = require('../models/repositories/account.repo.js');
-const { findOneRoleByName, findOneRoleById } = require('../models/repositories/role.repo.js');
+const { 
+    findOneRoleByName, 
+    findOneRoleById,
+    getListRole
+} = require('../models/repositories/role.repo.js');
 
 // core response
-const { BadRequestError, NotFoundError } = require('../core/error.response');
+const { 
+    BadRequestError, 
+    NotFoundError 
+} = require('../core/error.response');
 
 // utils
 const { 
@@ -58,7 +65,7 @@ class RoleService {
      * @param {ObjectId} roleId 
      * @param {Object}   payload chứa các thông tin chỉnh sửa
      */
-    static updateRole = async ( {roleId, payload }) => {
+    static updateRole = async ({ roleId, payload }) => {
         const { name , description, permissions } = payload;
 
         // kiểm tra xem ID của nhóm quyền muốn chỉnh sửa có hợp lệ không ?
@@ -89,7 +96,7 @@ class RoleService {
 
         // kiểm tra loại phân quyền có hợp lệ hay không - CHƯA LÀM
         // ....
-        
+
         // update...
         const filterUpdate = { _id: parseObjectIdMongoose(roleId) };
         const update = { 
@@ -104,6 +111,26 @@ class RoleService {
         // select field 
         const selectField = ['_id', 'role_name', 'role_slug', 'role_description', 'role_permissions'];
         return pickFieldInObject({ object: updatedRole, field: selectField })
+    }
+
+
+    /**
+     * 
+     * @param {*} param0 
+     * @returns 
+     */
+    static getListRole = async ({ 
+        status, 
+        isDeleted = false, // mặc định các nhóm quyền chưa xóa
+        // còn skip và limit để tính pagination
+    }) => {
+        const filter = {
+            role_status: status,
+            role_isDeleted: isDeleted,
+            // còn pagination nữa nha
+        }
+
+        return await getListRole( removeFieldNullOrUndefined(filter) )
     }
 }
 
