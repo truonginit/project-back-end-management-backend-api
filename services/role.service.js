@@ -115,10 +115,11 @@ class RoleService {
 
 
     /**
-     * 
-     * @param {*} param0 
+     * @description Lấy danh sách nhóm quyền (Mặc định sẽ là lấy tất cả trừ các nhóm quyền đã xóa)
+     * @param {String} status 
+     * @param {Boolean} isDeleted 
      * @returns 
-     */
+    */
     static getListRole = async ({ 
         status, 
         isDeleted = false, // mặc định các nhóm quyền chưa xóa
