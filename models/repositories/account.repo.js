@@ -6,7 +6,11 @@
 const AccountModel = require('../account.model');
 
 // utils
-const { selectFieldInMongoose, removeFieldNullOrUndefined } = require('../../utils/index.util');
+const { 
+    selectFieldInMongoose, 
+    removeFieldNullOrUndefined, 
+    parseObjectIdMongoose
+} = require('../../utils/index.util');
 
 /**
  * @description kiểm tra xem email này đã tồn tại hay chưa
@@ -40,4 +44,9 @@ module.exports.findAllAccount = async ( { status, isDeleted, select} ) => {
      *  removeFieldNullOrUndefined để khi query mà thiếu trường đó nó sẽ xóa ra để giúp việc query Mongoose chính xác hơn 
     */
     return await AccountModel.find(removeFieldNullOrUndefined(filter)).select(selectFieldInMongoose(select));
+}
+
+
+module.exports.findOneAccountById = async ({ accountId }) => {
+    return await AccountModel.findOne({ _id: parseObjectIdMongoose(accountId) }).lean();
 }

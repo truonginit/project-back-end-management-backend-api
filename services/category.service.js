@@ -17,6 +17,11 @@ const {
 
 // service
 class CategoryService {
+    /**
+     * @description Tạo mới một danh mục
+     * @param {*} param0 
+     * @returns 
+     */
     static createNewCategory = async ({  parent_categoryId, name, description, thumb, accountId }) => {
         // check xem category cha có hợp lệ không
         let foundParentCategory;

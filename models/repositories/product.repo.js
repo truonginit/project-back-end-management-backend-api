@@ -19,6 +19,7 @@ module.exports.getAllProductByQuery = async ({ status, isDeleted, unSelect = [] 
 
     return ProductModel.find(removeFieldNullOrUndefined(filter))
                        .populate("product_accountId", 'account_name')
+                       .populate("product_categoryId", 'category_name')
                        .select(unSelectFieldInMongoose(unSelect))
                        .lean();
 }
@@ -37,6 +38,8 @@ module.exports.getDetailProductBySlug = async ({ slug, status, unSelect = [], is
     }
 
     return await ProductModel.findOne(removeFieldNullOrUndefined(filter))
+                             .populate("product_accountId", 'account_name')
+                             .populate("product_categoryId", 'category_name')
                              .select(unSelectFieldInMongoose(unSelect))
                              .lean(isLean);
 }
@@ -50,6 +53,8 @@ module.exports.getDetailProductBySlug = async ({ slug, status, unSelect = [], is
 */
 module.exports.getDetailProductById = async ({ productId, select, isLean = true }) => {
     return await ProductModel.findOne({ _id: parseObjectIdMongoose(productId) })
+                             .populate("product_accountId", 'account_name')
+                             .populate("product_categoryId", 'category_name')
                              .select(selectFieldInMongoose(select))
                              .lean(isLean)
 }

@@ -23,19 +23,20 @@ const {
 
 // class 
 class Product {
-    constructor({ name, desc, thumb, quantity, price, provider, type,
+    constructor({ categoryId, name, desc, thumb, quantity, price, type,
         accountId, // id của tài khoản tạo sản phẩm này 
         attributes,    
     }) {
+        this.product_categoryId       = categoryId;
         this.product_name             = name;
         this.product_description      = desc;
         this.product_thumb            = thumb;
         this.product_quantity         = quantity;
         this.product_price            = price;
         this.product_type             = type;
-        this.accountId                = accountId;
+        this.product_accountId        = accountId; // accountId của người tạo sản phẩm
         // this.productId = productId;
-        this.product_attributes       = attributes;
+        this.product_attributes       = attributes; // trong attributes này cũng phải chứa accountId của người tạo sản phẩm
     }
 
     /**
@@ -79,9 +80,9 @@ class Book extends Product{
         // console.log('Class Book:::Func createProduct:::', this);
 
         // Lưu những thuộc tính của Sách vào BookModel
-        const newBook = await BookModel.create(this.attributes);
+        const newBook = await BookModel.create(this.product_attributes);
 
-        if(!newBook) throw new BadRequestError(''); // tạo thất bại
+        if(!newBook) throw new BadRequestError('Tạo sản phẩm mới thất bại'); // tạo thất bại
 
         // Lưu những thông tin chung sản phẩm (sách) vào ProductModel
         const newProduct = await super.createProduct({ productId: newBook._id});

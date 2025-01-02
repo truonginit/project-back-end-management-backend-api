@@ -14,7 +14,8 @@ const COLLECTION_NAME = 'products';
 const productSchema = new mongoose.Schema({
     
     // _id của sản phẩm sẽ lấy từ các _id của Schema Attribute
-
+    product_categoryId: { type: mongoose.Types.ObjectId, ref: 'Category'}, // ID của danh mục mà sản phẩm này thuộc về
+     
     product_name: { type: String, required: true },
     product_description: { type: String, required: true },
     product_thumb: { type: Array, default: [] }, // hình ảnh của sản phẩm
