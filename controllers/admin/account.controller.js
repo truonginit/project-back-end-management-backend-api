@@ -40,3 +40,11 @@ module.exports.createAccount = async (req, res, next) => {
     }).send(res);
 }
 
+
+// [POST]
+module.exports.loginAccount = async (req, res, next) => {
+    new SuccessResponse({
+        message: 'Đăng nhập tài khoản quản trị thành công',
+        metadata: await AccountService.loginAccount(req.body)
+    }).send(res);
+}

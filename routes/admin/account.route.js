@@ -15,6 +15,7 @@ router.get('/', asyncHandler(accountController.findAllAccount));
 
 // [POST]
 router.post('/create', asyncHandler(accountController.createAccount));
+router.post('/login',  asyncHandler(accountController.loginAccount));
 
 
 // [PATCH]

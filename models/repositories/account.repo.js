@@ -9,7 +9,8 @@ const AccountModel = require('../account.model');
 const { 
     selectFieldInMongoose, 
     removeFieldNullOrUndefined, 
-    parseObjectIdMongoose
+    parseObjectIdMongoose,
+    unSelectFieldInMongoose
 } = require('../../utils/index.util');
 
 /**
@@ -47,6 +48,27 @@ module.exports.findAllAccount = async ( { status, isDeleted, select} ) => {
 }
 
 
+/**
+ * @description Tìm tài khoản theo Id
+ * @param {*} param0 
+ * @returns 
+ */
 module.exports.findOneAccountById = async ({ accountId }) => {
     return await AccountModel.findOne({ _id: parseObjectIdMongoose(accountId) }).lean();
 }
+
+
+module.exports.findByEmail = async ({ email, status, isDeleted = false, isLean = true, 
+    unSelect = ['__v'] 
+}) => {
+    const filter = {
+        account_email: email,
+        account_status: status,
+        account_isDeleted: isDeleted
+    };
+
+    return await AccountModel.findOne(removeFieldNullOrUndefined(filter))
+                             .select(unSelectFieldInMongoose(unSelect))
+                             .lean(isLean);
+}
+

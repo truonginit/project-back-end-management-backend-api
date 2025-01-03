@@ -2,16 +2,27 @@
 const AccountModel = require('../models/account.model');
 
 // repository
-const { isEmailExits, findAllAccount } = require('../models/repositories/account.repo');
+const { 
+    isEmailExits, 
+    findAllAccount,
+    findByEmail
+} = require('../models/repositories/account.repo');
 
 // core response
-const { BadRequestError } = require('../core/error.response');
+const { BadRequestError, NotFoundError } = require('../core/error.response');
 
 // package
 const bcrypt = require('bcrypt');
 
 // utils
+const { createPairToken } = require('../auth/authUtils');
 const { pickFieldInObject } = require('../utils/index.util');
+const {
+    generatePairKey
+} = require('../utils/generate.util');
+
+// require service
+const KeyStoreService = require('../services/keyStore.service');
 
 // constant
 const SALT_ROUNDS = 10; // độ băm sử dụng với bcrypt
@@ -72,6 +83,41 @@ class AccountService {
         // Response
         return {
             account: pickFieldInObject({ object: newAccount, field: fieldForPick })
+        }
+    }
+
+    static loginAccount = async ({ email, password }) => {
+        // kiểm tra xem email có hợp lệ không
+        const foundEmail = await findByEmail({ email, isLean: false });
+        if(!foundEmail) throw new NotFoundError('Không tìm thấy email');
+
+        // kiểm tra mật khẩu có hợp lệ không
+        const isPasswordTrue = bcrypt.compareSync(password, foundEmail.account_password);
+        if(!isPasswordTrue) throw new BadRequestError('Đăng nhập thất bại');
+
+        // tạo cặp key, publicKey và privateKey
+        const { publicKey, privateKey } = generatePairKey(64);
+
+        // tạo accessToken và refreshToken
+        const payload = {
+            accountId: foundEmail._id, // tài khoản admin dùng chữ accountId cho chuẩn
+            email 
+        }
+
+        const { accessToken, refreshToken } = createPairToken({ payload, publicKey, privateKey });
+
+        // lưu accessToken và refreshToken vào db
+        const saveKeyOnDb = await KeyStoreService.saveKeyToken({
+            userId: foundEmail._id,
+            publicKey,
+            privateKey
+        });
+
+        // có thể select lại các field của foundEmail để response lại cho gọn hợn
+        return {
+            account: foundEmail,
+            accessToken,
+            refreshToken
         }
     }
 
