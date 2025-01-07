@@ -12,6 +12,7 @@ const router = express.Router();
 
 // [GET]
 router.get('/', asyncHandler(accountController.findAllAccount));
+router.get('/detail/:id', asyncHandler(accountController.findDetailAccountById));
 
 // [POST]
 router.post('/create', asyncHandler(accountController.createAccount));

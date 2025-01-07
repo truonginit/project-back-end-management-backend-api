@@ -20,7 +20,7 @@ module.exports.uploadMulti = async (req, res, next) => {
     }).send(res); 
 }
 
-// [POST]   /admin/uploads/resie-file
+// [POST]   /admin/uploads/resize-file
 module.exports.resizeFileUploaded = async (req, res, next) => {
     new SuccessResponse({
         message: 'Resize lại file thành công', // này là file ảnh

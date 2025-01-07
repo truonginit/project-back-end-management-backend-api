@@ -14,7 +14,7 @@ const {
 } = require('../../utils/index.util');
 
 /**
- * @description kiểm tra xem email này đã tồn tại hay chưa
+ * @description Kiểm tra xem email này đã tồn tại hay chưa
  * @param {String} email 
  * @return 
 */
@@ -29,7 +29,7 @@ module.exports.isEmailExits = async ( { email } ) => {
 } 
 
 /**
- * @description Tìm tài khoản quản trị (theo query)
+ * @description Tìm tất cả tài khoản quản trị (theo query)
  * @param {String}  status
  * @param {Boolean} isDeleted,
  * @param {Array}   select 
@@ -49,15 +49,26 @@ module.exports.findAllAccount = async ( { status, isDeleted, select} ) => {
 
 
 /**
- * @description Tìm tài khoản theo Id
+ * @description Tìm 1 tài khoản theo Id
+ * @param {String} accountId 
+ * @returns 
+ */
+module.exports.findOneAccountById = async ({ accountId, isLean = true, unSelect }) => {
+    unSelect = [
+        'account_password',
+        '__v'
+    ];
+
+    return await AccountModel.findOne({ _id: parseObjectIdMongoose(accountId) })
+                             .select(unSelectFieldInMongoose(unSelect))
+                             .lean(isLean);
+}
+
+/**
+ * @description Tìm 1 tài khoản theo email
  * @param {*} param0 
  * @returns 
  */
-module.exports.findOneAccountById = async ({ accountId }) => {
-    return await AccountModel.findOne({ _id: parseObjectIdMongoose(accountId) }).lean();
-}
-
-
 module.exports.findByEmail = async ({ email, status, isDeleted = false, isLean = true, 
     unSelect = ['__v'] 
 }) => {

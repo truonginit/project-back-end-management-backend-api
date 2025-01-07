@@ -5,7 +5,8 @@ const AccountModel = require('../models/account.model');
 const { 
     isEmailExits, 
     findAllAccount,
-    findByEmail
+    findByEmail,
+    findOneAccountById
 } = require('../models/repositories/account.repo');
 
 // core response
@@ -86,6 +87,9 @@ class AccountService {
         }
     }
 
+    /**
+     *  @description Đăng nhập 
+    */
     static loginAccount = async ({ email, password }) => {
         // kiểm tra xem email có hợp lệ không
         const foundEmail = await findByEmail({ email, isLean: false });
@@ -122,13 +126,22 @@ class AccountService {
     }
 
     /**
-     * @description Tìm tài khoản quản trị (theo query)
+     * @description Tìm tất cả tài khoản quản trị (theo query)
      * @param {String}  status
      * @param {Boolean} isDeleted,
      * @param {Array}   select 
     */
     static findAllAccount = async ({ status, isDeleted, select = [] }) => {
         return await findAllAccount({ status, isDeleted, select });
+    }
+
+    /**
+     * @description Lấy chi tiết tài khoản
+     * @param { String } accountId
+     * @returns 
+     */
+    static findDetailAccountById = async ({ accountId }) => {
+        return await findOneAccountById({ accountId });
     }
 }
 

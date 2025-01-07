@@ -22,6 +22,18 @@ module.exports.findAllAccount = async (req, res, next) => {
     }).send(res);
 }
 
+// [GET] /admin/accounts/detail/:id
+/**
+ * @description Lấy chi tiết tài khoản theo ID
+ * @return {JSON}
+*/
+module.exports.findDetailAccountById = async (req, res, next) => {
+    new SuccessResponse({
+        message: 'Lấy thông tin chi tiết tài khoản',
+        metadata: await AccountService.findDetailAccountById({ accountId: req.params.id })
+    }).send(res);
+}
+
 // [POST] /admin/accounts/create
 /**
  * @description Tạo (Thêm) mới tài khoản quản trị
@@ -40,8 +52,7 @@ module.exports.createAccount = async (req, res, next) => {
     }).send(res);
 }
 
-
-// [POST]
+// [POST] /admin/accounts/login
 module.exports.loginAccount = async (req, res, next) => {
     new SuccessResponse({
         message: 'Đăng nhập tài khoản quản trị thành công',
