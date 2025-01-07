@@ -1,6 +1,7 @@
 // require package
 const express = require('express');
 const compression = require('compression');
+const cors = require('cors');
 
 // require config
 const { app: { port } } = require('./config/system.config');
@@ -11,6 +12,9 @@ const InstanceMongo = require('./databases/mongodb');
 // require router
 const adminRouter = require('./routes/admin/index.route');
 const errorRouter = require('./routes/error/error.route');
+
+// initialize cors
+app.use(cors());  // Enable All CORS Requests
 
 // initialize database
 InstanceMongo.connect();
