@@ -15,7 +15,6 @@ module.exports.createPairToken = async ({ payload, publicKey, privateKey }) => {
 
         // Tạo Refresh Token sử dụng Public Key
         const refreshToken = await jwt.sign(payload, publicKey, { expiresIn: '7 days' });
-
         return { accessToken, refreshToken };
     } 
     catch( error ) {
@@ -27,3 +26,8 @@ module.exports.createPairToken = async ({ payload, publicKey, privateKey }) => {
         }
     }
 } 
+
+
+module.exports.verifyToken = async (token, keyForDecode) => {
+    return await jwt.verify(token, keyForDecode);
+}

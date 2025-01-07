@@ -108,14 +108,16 @@ class AccountService {
             email 
         }
 
-        const { accessToken, refreshToken } = createPairToken({ payload, publicKey, privateKey });
+        const { accessToken, refreshToken } = await createPairToken({ payload, publicKey, privateKey });
 
         // lưu accessToken và refreshToken vào db
         const saveKeyOnDb = await KeyStoreService.saveKeyToken({
             userId: foundEmail._id,
             publicKey,
-            privateKey
+            privateKey,
+            refreshToken
         });
+
 
         // có thể select lại các field của foundEmail để response lại cho gọn hợn
         return {

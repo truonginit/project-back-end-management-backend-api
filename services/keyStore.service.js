@@ -1,6 +1,9 @@
 // model
 const KeyStoreModel = require('../models/keyStore.model');
 
+// repo
+const { findKeyStoreByUserId } = require('../models/repositories/keyStore.repo');
+
 // package
 const { Types } = require('mongoose');
 
@@ -46,6 +49,10 @@ class KeyStoreService {
                 stack: error.stack
             }
         }
+    }
+
+    static findKeyStoreByUserId = async ({ userId }) => {
+        return await findKeyStoreByUserId({ userId });
     }
 }
 

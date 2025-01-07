@@ -18,16 +18,11 @@ module.exports.generateSlug = ({ name }) => {
     return replaceAllWhitespace;
 }
 
-
 /**
  * @description tạo cặp key public và private
 */
-module.exports.generatePairKey = async (length) => {
+module.exports.generatePairKey = (length) => {
     const publicKey = crypto.randomBytes(length).toString('hex');
     const privateKey = crypto.randomBytes(length).toString('hex');
-    
-    return {
-        publicKey,
-        privateKey
-    }
+    return { publicKey, privateKey };
 }
