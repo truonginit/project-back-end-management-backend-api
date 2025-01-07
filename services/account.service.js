@@ -6,7 +6,8 @@ const {
     isEmailExits, 
     findAllAccount,
     findByEmail,
-    findOneAccountById
+    findOneAccountById,
+    deleteById
 } = require('../models/repositories/account.repo');
 
 // core response
@@ -144,6 +145,22 @@ class AccountService {
      */
     static findDetailAccountById = async ({ accountId }) => {
         return await findOneAccountById({ accountId });
+    }
+
+    /**
+     * @description Xóa tài khoản quản trị theo id
+     * @param {*} param0 
+     * @returns 
+     */
+    static deleteAccountById = async ({ accountId, accountIdForDelete }) => {
+        if(accountId === accountIdForDelete)
+            throw new BadRequestError('Không thể tự xóa tài khoản của mình')
+
+        const accDeleted = await deleteById({ accountId: accountIdForDelete });
+        if(!accDeleted.modifiedCount) 
+            throw new BadRequestError('Xóa mềm tài khoản thất bại');
+
+        return accDeleted;
     }
 }
 

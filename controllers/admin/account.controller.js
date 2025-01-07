@@ -59,3 +59,15 @@ module.exports.loginAccount = async (req, res, next) => {
         metadata: await AccountService.loginAccount(req.body)
     }).send(res);
 }
+
+// [POST] /admin/accounts/delete-soft/:id
+module.exports.deleteSoftOneAccount = async (req, res, next) => {
+    new SuccessResponse({
+        message: 'Xóa mềm 1 tài khoản quản trị thành công',
+        metadata: await AccountService.deleteAccountById({
+            accountIdForDelete: req.params.id,
+            accountId: req.account?.accountId
+        })
+    }).send(res);
+    
+}

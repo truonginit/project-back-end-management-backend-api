@@ -17,13 +17,9 @@ const router = express.Router();
 // schema validation
 const { signUp, login } = require('../../validations/admin/auth.validation');
 
-// login
-router.post(
-    '/login',  
-    validate(login),
-    asyncHandler(accountController.loginAccount)
-);
-
+// ###################### Login ######################
+router.post('/login', validate(login), asyncHandler(accountController.loginAccount) );
+    
 // ###################### AUTHEN MIDDLEWARE ######################
 router.use('', asyncHandler(requireAuth));
 
@@ -32,13 +28,12 @@ router.get('/', asyncHandler(accountController.findAllAccount));
 router.get('/detail/:id', asyncHandler(accountController.findDetailAccountById));
 
 // [POST]
-router.post(
-    '/create', 
-    validate(signUp),
-    asyncHandler(accountController.createAccount)
-);
-
+router.post('/create', validate(signUp), asyncHandler(accountController.createAccount));
+    
 // [PATCH]
+
+// [DELETE]
+router.delete('/delete-soft/:id', asyncHandler(accountController.deleteSoftOneAccount));
 
 // exports
 module.exports = router;

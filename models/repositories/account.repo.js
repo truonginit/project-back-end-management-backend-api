@@ -83,3 +83,13 @@ module.exports.findByEmail = async ({ email, status, isDeleted = false, isLean =
                              .lean(isLean);
 }
 
+/**
+ * @description xóa mềm 1 tài khoản bằng id
+ * @param {*} param0 
+ * @returns 
+*/
+module.exports.deleteById = async ({ accountId }) => {
+    const filter = { _id: parseObjectIdMongoose(accountId) };
+    const update = { account_status: 'inactive', account_isDeleted: true };
+    return await AccountModel.updateOne(filter, update);
+}
