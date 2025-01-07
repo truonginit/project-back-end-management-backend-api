@@ -6,6 +6,7 @@ const accountController = require('../../controllers/admin/account.controller');
 
 // middleware
 const { requireAuth } = require('../../middleware/admin/auth.middleware');
+const { validate } = require('../../middleware/admin/validate.middleware');
 
 // helper
 const asyncHandler = require('../../helpers/asyncHandler.helper');
@@ -13,8 +14,15 @@ const asyncHandler = require('../../helpers/asyncHandler.helper');
 // Tạo instance route
 const router = express.Router();
 
+// schema validation
+const { signUp, login } = require('../../validations/admin/auth.validation');
+
 // login
-router.post('/login',  asyncHandler(accountController.loginAccount));
+router.post(
+    '/login',  
+    validate(login),
+    asyncHandler(accountController.loginAccount)
+);
 
 // ###################### AUTHEN MIDDLEWARE ######################
 router.use('', asyncHandler(requireAuth));
@@ -24,7 +32,11 @@ router.get('/', asyncHandler(accountController.findAllAccount));
 router.get('/detail/:id', asyncHandler(accountController.findDetailAccountById));
 
 // [POST]
-router.post('/create', asyncHandler(accountController.createAccount));
+router.post(
+    '/create', 
+    validate(signUp),
+    asyncHandler(accountController.createAccount)
+);
 
 // [PATCH]
 

@@ -1,5 +1,6 @@
 // require package
 const express = require('express');
+const compression = require('compression');
 
 // require config
 const { app: { port } } = require('./config/system.config');
@@ -17,6 +18,9 @@ InstanceMongo.connect();
 // initialize app & port
 const app = express();
 const PORT = port;
+
+// initialize compression
+app.use(compression());
 
 // initialize body-parser
 app.use(express.json());
