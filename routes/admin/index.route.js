@@ -2,6 +2,9 @@
  * @description 
 */
 
+// variable config
+const VariableConfig = require('../../config/variable.config');
+
 // router
 const accountRouter     = require('./account.route');
 const productRouter     = require('./product.route');
@@ -10,7 +13,7 @@ const roleRouter        = require('./role.route');
 const uploadRouter        = require('./upload.route');
 
 module.exports = ( app ) => {
-    const PATH_ADMIN = '/admin';
+    const PATH_ADMIN = VariableConfig.PATH_ADMIN
 
     app.use(PATH_ADMIN + '/accounts',   accountRouter);
 
