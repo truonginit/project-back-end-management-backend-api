@@ -13,6 +13,8 @@ const { productValidate } = require('../../middleware/admin/product-validate.mid
 const { 
     AddProductGeneralJoi, 
     UpdateProductGeneralJoi,
+    changeStatusJoi,
+    deleteProductJoi
 } = require('../../validations/admin/product.validation');
 
 // helper
@@ -38,6 +40,7 @@ router.post(
 // [PATCH]
 router.patch(
     '/change-status/:productId/:status', 
+    validate(changeStatusJoi),
     asyncHandler(productController.changeStatusOfOneProduct)
 );
 
@@ -50,6 +53,7 @@ router.patch(
 // [DELETE]
 router.delete(
     '/delete-soft/:productId', 
+    validate(deleteProductJoi),
     asyncHandler(productController.deleteSoftOneProduct)
 );
 

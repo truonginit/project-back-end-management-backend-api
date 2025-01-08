@@ -36,3 +36,17 @@ module.exports.UpdateProductGeneralJoi = {
     }
 }
 
+// [PATCH] /admin/products/change-status/:productId/:status
+module.exports.changeStatusJoi = {
+    params: {
+        productId: Joi.string().required(),
+        status: Joi.string().required
+    }
+}
+
+// [DELETE] /admin/products/delete-soft/:productId
+module.exports.deleteProductJoi = {
+    params: {
+        productId: Joi.string().required(),
+    }
+}
