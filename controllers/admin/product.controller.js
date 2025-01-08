@@ -46,7 +46,7 @@ module.exports.createProduct = async (req, res, next) => {
     new SuccessResponse({
         message: 'Tạo mới sản phẩm thành công',
         metadata: await ProductFactoryService.createProduct({
-            type: req.body.type,
+            type: req.body.product_type,
             payload: req.body
         })
     }).send(res);
@@ -78,7 +78,7 @@ module.exports.updateOneProduct = async (req, res, next) => {
     new SuccessResponse({
         message: 'Cập nhật một sản phẩm',
         metadata: await ProductFactoryService.updateOneProduct({
-            type: req.body.type,
+            type: req.body.product_type,
             productId: req.params.productId,
             payload: req.body
         })

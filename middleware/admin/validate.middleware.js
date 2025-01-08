@@ -3,10 +3,12 @@ const Joi = require('joi');
 
 // util
 const { pickFieldInObject} = require('../../utils/index.util');
-const { BadRequestError } = require('../../core/error.response');
+
+// response core
+const { BadRequestError, NotFoundError } = require('../../core/error.response');
 
 /**
- *  @description middleware validate 
+ *  @description middleware validate, sẽ validate theo các schema được truyền vào
  *  @param {Schema Joi} schema là schema được tạo ra từ package joi
 */
 module.exports.validate = (schema) => (req, res, next) => {

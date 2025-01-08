@@ -13,15 +13,15 @@ const InstanceMongo = require('./databases/mongodb');
 const adminRouter = require('./routes/admin/index.route');
 const errorRouter = require('./routes/error/error.route');
 
-// initialize cors
-app.use(cors());  // Enable All CORS Requests
-
 // initialize database
 InstanceMongo.connect();
 
 // initialize app & port
 const app = express();
 const PORT = port;
+
+// initialize cors
+app.use(cors());  // Enable All CORS Requests
 
 // initialize compression
 app.use(compression());

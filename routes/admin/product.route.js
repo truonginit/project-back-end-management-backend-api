@@ -6,6 +6,14 @@ const productController = require('../../controllers/admin/product.controller');
 
 // middleware
 const { requireAuth } = require('../../middleware/admin/auth.middleware');
+const { validate }  = require('../../middleware/admin/validate.middleware');
+const { productValidate } = require('../../middleware/admin/product-validate.middleware');
+
+// schema validation
+const { 
+    AddProductGeneralJoi, 
+    UpdateProductGeneralJoi,
+} = require('../../validations/admin/product.validation');
 
 // helper
 const asyncHandler = require('../../helpers/asyncHandler.helper');
@@ -21,14 +29,29 @@ router.get('/', asyncHandler(productController.getAllProduct));
 router.get('/detail/:slug', asyncHandler(productController.getDetailProductBySlug));
 
 // [POST]
-router.post('/create', asyncHandler(productController.createProduct));
-
+router.post(
+    '/create', 
+    productValidate('create', AddProductGeneralJoi), 
+    asyncHandler(productController.createProduct)
+);
+    
 // [PATCH]
-router.patch('/change-status/:productId/:status', asyncHandler(productController.changeStatusOfOneProduct));
-router.patch('/update-one/:productId', asyncHandler(productController.updateOneProduct));
+router.patch(
+    '/change-status/:productId/:status', 
+    asyncHandler(productController.changeStatusOfOneProduct)
+);
+
+router.patch(
+    '/update-one/:productId', 
+    productValidate('update', UpdateProductGeneralJoi), 
+    asyncHandler(productController.updateOneProduct)
+);
 
 // [DELETE]
-router.delete('/delete-soft/:productId', asyncHandler(productController.deleteSoftOneProduct));
+router.delete(
+    '/delete-soft/:productId', 
+    asyncHandler(productController.deleteSoftOneProduct)
+);
 
 // exports
 module.exports = router;

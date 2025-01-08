@@ -23,20 +23,27 @@ const {
 
 // class 
 class Product {
-    constructor({ categoryId, name, desc, thumb, quantity, price, type,
-        accountId, // id của tài khoản tạo sản phẩm này 
-        attributes,    
+    constructor({ 
+        product_categoryId, 
+        product_name, 
+        product_description, 
+        product_thumb, 
+        product_quantity, 
+        product_price, 
+        product_type,
+        product_accountId, // id của tài khoản tạo sản phẩm này 
+        product_attributes,    
     }) {
-        this.product_categoryId       = categoryId;
-        this.product_name             = name;
-        this.product_description      = desc;
-        this.product_thumb            = thumb;
-        this.product_quantity         = quantity;
-        this.product_price            = price;
-        this.product_type             = type;
-        this.product_accountId        = accountId; // accountId của người tạo sản phẩm
+        this.product_categoryId       = product_categoryId;
+        this.product_name             = product_name;
+        this.product_description      = product_description;
+        this.product_thumb            = product_thumb;
+        this.product_quantity         = product_quantity;
+        this.product_price            = product_price;
+        this.product_type             = product_type;
+        this.product_accountId        = product_accountId; // accountId của người tạo sản phẩm
         // this.productId = productId;
-        this.product_attributes       = attributes; // trong attributes này cũng phải chứa accountId của người tạo sản phẩm
+        this.product_attributes       = product_attributes; // trong attributes này cũng phải chứa accountId của người tạo sản phẩm
     }
 
     /**
