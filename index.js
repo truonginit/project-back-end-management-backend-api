@@ -36,5 +36,5 @@ errorRouter(app);
 
 // listen server
 app.listen(PORT, () => {
-  console.log(`Khởi Động Ứng Dụng ::: Management BackEnd API`);
+  console.log(`Website: kết nối thành công`);
 });

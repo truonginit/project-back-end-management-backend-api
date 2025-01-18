@@ -15,6 +15,9 @@ const categoryRouter    = require('./category.route');
 const roleRouter        = require('./role.route');
 const uploadRouter        = require('./upload.route');
 
+// helper
+const asyncHandler = require('../../helpers/asyncHandler.helper');
+
 module.exports = ( app ) => {
     const PATH_ADMIN = VariableConfig.PATH_ADMIN
 

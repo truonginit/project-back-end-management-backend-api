@@ -21,8 +21,8 @@ class MongoDatabase {
      */
     connect = (type='mongodb') => {
         mongoose.connect(MONGO_URL)
-                .then(  () => console.log(`Management BackEnd API ::: Kết nối database thành công !!!`))
-                .catch( () => console.log(`Management BackEnd API ::: Kết nối database thất bại !!!`))
+                .then(  () => console.log(`MongoDB: kết nối thành công`))
+                .catch( () => console.log(`MongoDB: kết nối thất bại`))
     }
 
 

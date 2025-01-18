@@ -1,4 +1,4 @@
-const DiscordService = require('../../log/discord.log');
+const DiscordService = require('../../loggers/discord.log');
 
 module.exports.pushToLogDiscord = async (req, res, next) => {
     try {
@@ -13,7 +13,7 @@ module.exports.pushToLogDiscord = async (req, res, next) => {
         })
 
         // next middleware
-        next();
+        return next();
     }
     catch (error) {
         // error

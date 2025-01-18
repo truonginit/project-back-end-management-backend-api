@@ -21,7 +21,7 @@ class DiscordService {
         this.serverID   = DISCORD_SERVER_ID;    // server discord ID
         
         // lắng nghe sự kiện 'sẵn sàng'
-        this.client.on('ready', () => console.log(`Bot Logger Discord ::: tag ::: ${this.client.user.tag}`));
+        this.client.on('ready', () => console.log(`Discord: bot ${this.client.user.tag} đã sẵn sàng`));
 
         // bot ::: đăng nhập vào discord server
         this.client.login(DISCORD_BOT_APPLICATION_TOKEN);
@@ -55,7 +55,7 @@ class DiscordService {
     sendToMessage = async ( message = 'message') => {
         const channel = this.client.channels.cache.get(DISCORD_SERVER_ID)
         if(!channel){
-            console.error(`Couldn't find the channel...`, this.serverID)
+            console.error(`Không tìm thấy serverID này...`, this.serverID)
             return;
         }
 

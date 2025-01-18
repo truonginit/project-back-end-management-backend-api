@@ -2,6 +2,8 @@
  * @description Core Response Error 
 */
 
+const logger = require("../loggers/wiston.log");
+
 // status code
 const statusCode = {
     CONFLICT: 409,
@@ -27,6 +29,7 @@ const reasonStatusCode = {
 /**
  * @description gọi đến class Error khi đó nó sẽ tự throw new (ném) error 
 */
+
 class ErrorResponse extends Error {
     constructor (status, message) {
         super(message); // gọi constructor Error ... new Error('thông điệp truyền tải');
@@ -34,6 +37,8 @@ class ErrorResponse extends Error {
         // ...
         // this lúc này chính là class Error
         // ...
+
+        logger.error(`${status} - ${this.message}`);
         
         this.status = status;
     }
