@@ -5,6 +5,9 @@
 // variable config
 const VariableConfig = require('../../config/variable.config');
 
+// middleware
+const { pushToLogDiscord } = require('../../middleware/admin/log.middleware');
+
 // router
 const accountRouter     = require('./account.route');
 const productRouter     = require('./product.route');
@@ -14,6 +17,10 @@ const uploadRouter        = require('./upload.route');
 
 module.exports = ( app ) => {
     const PATH_ADMIN = VariableConfig.PATH_ADMIN
+
+    app.use(pushToLogDiscord);      // gửi log lên discord
+
+    // require authentication (từ từ nếu để chung ở đây sẽ có bất cập nha)
 
     app.use(PATH_ADMIN + '/accounts',   accountRouter);
 

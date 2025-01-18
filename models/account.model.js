@@ -16,9 +16,12 @@ const accountSchema = new mongoose.Schema({
     account_password:  { type: String, required: true },
     account_tel:       { type: String },
     account_avatar:    { type: String, default:  "" },
-    account_roleId:    { type: String }, // type ObjectId của mongoose là chuẩn
+    account_roleId:    { type: mongoose.Schema.ObjectId, ref: 'Role' }, // type ObjectId của mongoose là chuẩn
     account_status:    { type: String, default: 'inactive', enum: ['active', 'inactive'] },
     account_isDeleted: { type: Boolean, default: false }
+
+    // salf
+    // nếu tài khoản user cần có slug để là 1 cái id ảo, 
 },{
     timestamps: true
 });
