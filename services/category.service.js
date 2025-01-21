@@ -5,7 +5,8 @@ const CategoryModel = require('../models/category.model');
 const { 
     findCategoryById,
     findAllCategory,
-    deleteSoftById
+    deleteSoftById,
+    updateStatusById
 } = require('../models/repositories/category.repo');
 
 // core response
@@ -94,6 +95,16 @@ class CategoryService {
     static deleteSoft = async ({ categoryId }) => {
         const foundCategory = await deleteSoftById({ categoryId });
         if(!foundCategory) throw new NotFoundError(`Category not exists`);
+        return foundCategory;
+    }
+
+    static updateStatusOfOneCategory = async ({ categoryId, status }) => {
+        // kiểm tra trạng thái có hợp lệ không
+        const StateOfStatus = ['active', 'inactive', 'pending'];
+        if(!StateOfStatus.includes(status)) throw new BadRequestError(`State of Status isn't valid`);
+
+        const foundCategory = await updateStatusById({ categoryId, status });
+        if(!foundCategory) throw new NotFoundError('Category not exist');
         return foundCategory;
     }
 }

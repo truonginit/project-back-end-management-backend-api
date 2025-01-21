@@ -71,3 +71,6 @@
 2025-01-22 01:17:47 - INFO - DELETE /admin/categories/delete-soft/678fd95a2bec3b15f299718f - f9088473-b2a9-4cb2-9573-4fb6d77c70af - Request To Server - {}
 2025-01-22 01:17:47 - ERROR - DELETE /admin/categories/delete-soft/678fd95a2bec3b15f299718f - 33c4067b-bae3-4ff0-bc73-6d4e7681d4a6 - Time response: NaNms - {"message":"Error: slugify: string argument expected","module":"at replace ","file":"\\slugify.js:20:13"}
 2025-01-22 01:19:00 - INFO - DELETE /admin/categories/delete-soft/678fd95a2bec3b15f299718f - e6ab7ecf-34a5-4afb-975b-722a69358147 - Request To Server - {}
+2025-01-22 01:36:32 - INFO - PATCH /admin/categories/update-status/678fd93b2bec3b15f299718a/active - 97d8fd86-2429-43c2-acee-6f8cc574c712 - Request To Server - {}
+2025-01-22 01:36:32 - ERROR - PATCH /admin/categories/update-status/678fd93b2bec3b15f299718a/active - c515a4c9-9372-44a7-b131-82b85730cf4b - Time response: NaNms - {"message":"Error: Not Found URL","module":"at D:\\Software\\Project\\management-backend-api\\routes\\error\\error.route.js:18:23"}
+2025-01-22 01:36:58 - INFO - PATCH /admin/categories/update-status/678fd93b2bec3b15f299718a/active - 358f481a-4db4-42c7-a54e-ec4f96bd9f3f - Request To Server - {}

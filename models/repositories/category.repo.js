@@ -37,7 +37,11 @@ module.exports.findAllCategory = async ({ status, isDeleted , unSelect = ['__v']
                               .lean(isLean);
 }
 
-
+/**
+ * @description Xóa mềm 1 danh mục theo ID 
+ * @param {*} param0 
+ * @returns 
+*/
 module.exports.deleteSoftById = async ({ categoryId, isLean = false }) => {
     const foundCategory = await CategoryModel.findOne({_id: parseObjectIdMongoose(categoryId)})
                                              .select(selectFieldInMongoose(["category_status", "category_isDeleted", "category_name", "category_slug"]))
@@ -48,5 +52,21 @@ module.exports.deleteSoftById = async ({ categoryId, isLean = false }) => {
     foundCategory.category_isDeleted = true;
     await foundCategory.save();
 
+    return foundCategory;
+}
+
+/**
+ * @description Thay đổi trạng thái của danh mục theo ID 
+ * @param {*} param0 
+ * @returns 
+*/
+module.exports.updateStatusById = async ({ categoryId, status, isLean = false }) => {
+    const foundCategory = await CategoryModel.findOne({_id: parseObjectIdMongoose(categoryId)})
+                                             .select(selectFieldInMongoose(["category_name", "category_slug", "category_status"]))
+                                             .lean(isLean);
+    if(!foundCategory) return foundCategory;
+
+    foundCategory.category_status = status;
+    await foundCategory.save();
     return foundCategory;
 }

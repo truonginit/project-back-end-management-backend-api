@@ -67,6 +67,13 @@ module.exports.createNewCategory = async (req, res, next) => {
     }).send(res);
 }
 
+// [PATCH] /admin/categories/update-status/:id/:status
+module.exports.updateStatus = async (req, res, next) => {
+    new SuccessResponse({
+        message: 'Thay đổi trạng thái danh mục thành công',
+        metadata: await CategoryService.updateStatusOfOneCategory({ categoryId: req.params.id, status: req.params.status })
+    }).send(res);
+}
 
 // [DELETE] /admin/categories/delete-soft/:id
 module.exports.deleteSoft = async (req, res, next) => {

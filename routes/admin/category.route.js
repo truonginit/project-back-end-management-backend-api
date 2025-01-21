@@ -26,7 +26,7 @@ router.post('/create', asyncHandler(categoryController.createNewCategory));
 
 
 // [PATCH]
-
+router.patch('/update-status/:id/:status', asyncHandler(categoryController.updateStatus));
 
 // [DELETE]
 router.delete('/delete-soft/:id', asyncHandler(categoryController.deleteSoft));
