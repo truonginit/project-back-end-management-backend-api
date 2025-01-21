@@ -15,7 +15,7 @@ const asyncHandler = require('../../helpers/asyncHandler.helper');
 const router = express.Router();
 
 // schema validation
-const { signUp, login } = require('../../validations/admin/auth.validation');
+const { signUp, login, updateMyPassword } = require('../../validations/admin/auth.validation');
 
 // ###################### Login ######################
 router.post('/login', validate(login), asyncHandler(accountController.loginAccount) );
@@ -31,6 +31,7 @@ router.get('/detail/:id', asyncHandler(accountController.findDetailAccountById))
 router.post('/create', validate(signUp), asyncHandler(accountController.createAccount));
     
 // [PATCH]
+router.patch('/update-my-password', validate(updateMyPassword), asyncHandler(accountController.updatePassword));
 
 // [DELETE]
 router.delete('/delete-soft/:id', asyncHandler(accountController.deleteSoftOneAccount));

@@ -24,3 +24,15 @@ module.exports.login = {
                      .max(128)
     }
 }
+
+// [POST] /admin/accounts/update-password
+module.exports.updateMyPassword = {
+    account: {
+        accountId: Joi.string().required()
+    },
+    body: {
+        oldPassword: Joi.string().required().min(6).max(128),
+        newPassword: Joi.string().required().min(6).max(128),          
+        confirmNewPassword: Joi.string().required().min(6).max(128)          
+    }
+}

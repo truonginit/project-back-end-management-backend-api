@@ -72,3 +72,17 @@ module.exports.deleteSoftOneAccount = async (req, res, next) => {
     }).send(res);
     
 }
+
+// [PATCH] /admin/account/update-my-password
+module.exports.updatePassword = async (req, res, next) => {
+    new SuccessResponse({
+        message: 'Cập nhật mật khẩu tài khoản quản trị thành công',
+        metadata: await AccountService.updatePassword({
+            accountId:  req.account?.accountId,
+            oldPassword: req.body?.oldPassword,
+            newPassword: req.body?.newPassword,
+            confirmNewPassword: req.body?.confirmNewPassword
+        })
+    }).send(res);
+    
+}

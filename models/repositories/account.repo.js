@@ -53,12 +53,7 @@ module.exports.findAllAccount = async ( { status, isDeleted, select} ) => {
  * @param {String} accountId 
  * @returns 
  */
-module.exports.findOneAccountById = async ({ accountId, isLean = true, unSelect }) => {
-    unSelect = [
-        'account_password',
-        '__v'
-    ];
-
+module.exports.findOneAccountById = async ({ accountId, isLean = true, unSelect= [ 'account_password', '__v' ] }) => {
     return await AccountModel.findOne({ _id: parseObjectIdMongoose(accountId) })
                              .select(unSelectFieldInMongoose(unSelect))
                              .lean(isLean);
@@ -92,4 +87,8 @@ module.exports.deleteById = async ({ accountId }) => {
     const filter = { _id: parseObjectIdMongoose(accountId) };
     const update = { account_status: 'inactive', account_isDeleted: true };
     return await AccountModel.updateOne(filter, update);
+}
+
+module.exports.getFieldByFilter= async ({ filter, select = ["account_name", "account_email"], isLean = true }) => {
+    return await AccountModel.findOne(filter).select(select).lean(isLean);
 }

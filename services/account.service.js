@@ -7,7 +7,8 @@ const {
     findAllAccount,
     findByEmail,
     findOneAccountById,
-    deleteById
+    deleteById,
+    getFieldByFilter
 } = require('../models/repositories/account.repo');
 
 // core response
@@ -18,7 +19,10 @@ const bcrypt = require('bcrypt');
 
 // utils
 const { createPairToken } = require('../auth/authUtils');
-const { pickFieldInObject } = require('../utils/index.util');
+const { 
+    pickFieldInObject 
+} = require('../utils/index.util');
+
 const {
     generatePairKey
 } = require('../utils/generate.util');
@@ -161,6 +165,43 @@ class AccountService {
             throw new BadRequestError('Xóa mềm tài khoản thất bại');
 
         return accDeleted;
+    }
+
+    /**
+     * @description update mật khẩu của tài khoản (chỉ mới tự thay đổi được mật khẩu của chính mình)
+     * @param {*} param0 
+    */
+    static updatePassword= async ({ accountId, oldPassword, newPassword, confirmNewPassword }) => {
+        // 1. Kiểm tra xem accountId này có tồn tại không
+        const filter = { _id: accountId };
+        const foundAccount = await getFieldByFilter({ filter, select: ['account_password'], isLean: false });   // chỉ cần lấy field passowrd thôi để update nó nhanh hơn
+
+        if(!foundAccount) throw new NotFoundError(`Account isn't valid `); // tài khoản không tồn tại
+
+        // 2. Kiểm tra mật khẩu cũ có khớp không
+        const isMatchOldPassword = bcrypt.compareSync(oldPassword, foundAccount.account_password);
+        if(!isMatchOldPassword) 
+            throw new NotFoundError(`Old Password isn't valid `); // mật khẩu cũ không hợp lệ
+
+
+        // 3. Kiểm tra mật khẩu 2 cái nhập vào có khớp không
+        if(newPassword !== confirmNewPassword) throw new BadRequestError(`Cofirm password doesn't match`);
+
+        // 4. Nếu mật khẩu cũ đã khớp. Băm mật khẩu mới và lưu thôi
+        foundAccount.account_password = bcrypt.hashSync(newPassword, SALT_ROUNDS);
+
+        await foundAccount.save();  // lưu lại mật khẩu mới
+
+        const fieldForPick = [
+            '_id',
+            'account_name',
+            'account_email',
+            'account_tel',
+            'account_avatar',
+            'account_roleId'
+        ];
+        // response
+        return pickFieldInObject({ object: foundAccount, field: fieldForPick });
     }
 }
 
