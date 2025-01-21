@@ -14,11 +14,12 @@ const asyncHandler = require('../../helpers/asyncHandler.helper');
 const router = express.Router();
 
 // ###################### AUTHEN MIDDLEWARE ######################
-router.use('', asyncHandler(requireAuth));
+// router.use('', asyncHandler(requireAuth));
 
 // [GET]
 router.get('/', asyncHandler(categoryController.findAllCategory));
 router.get('/detail/:id', asyncHandler(categoryController.findDetailCategoryById));
+router.get('/tree-category', asyncHandler(categoryController.getTreeCategory));
 
 // [POST]
 router.post('/create', asyncHandler(categoryController.createNewCategory));

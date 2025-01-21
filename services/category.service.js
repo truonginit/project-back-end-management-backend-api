@@ -10,6 +10,9 @@ const {
 // core response
 const { BadRequestError, NotFoundError } = require('../core/error.response');
 
+// helper
+const createTreeCategory = require('../helpers/createTreeCategory.helper');
+
 // utils
 const { 
     selectFieldInMongoose, 
@@ -17,6 +20,7 @@ const {
     parseObjectIdMongoose,
     pickFieldInObject
 } = require('../utils/index.util');
+const { child } = require('winston');
 
 // service
 class CategoryService {
@@ -68,6 +72,17 @@ class CategoryService {
 
     static findDetailCategoryById = async ({ categoryId, status, isDeleted }) => {
         return await findCategoryById({categoryId , status, isDeleted });
+    }
+
+    /**
+     * @description Lấy cây danh mục 
+     * @returns 
+    */
+    static getTreeCategory = async () => {
+        const categories = await findAllCategory({ status: 'active', isDeleted: false, isLean: false});
+        const result = createTreeCategory(categories, "");
+        console.log(`result::`, result); // mở log trên browser mới xem được
+        return result;
     }
 }
 

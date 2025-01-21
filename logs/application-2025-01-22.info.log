@@ -3,3 +3,60 @@
 2025-01-22 00:01:05 - INFO - GET /admin/categories/detail/6773ed0c305e8d22e92ba096 - d38a8e1d-9d44-4560-ad47-13288eef832f - Request To Server - {"query":{"status":""}}
 2025-01-22 00:01:39 - INFO - GET /admin/categories/detail/6773ed0c305e8d22e92ba096 - 109cc96e-18d2-4f5b-82fb-bb85cc28041c - Request To Server - {"query":{"status":""}}
 2025-01-22 00:02:11 - INFO - GET /admin/categories/detail/6773ed0c305e8d22e92ba096 - 4a2542ff-c270-4fd9-b13b-3828a688609b - Request To Server - {"query":{"status":""}}
+2025-01-22 00:20:45 - INFO - GET /admin/categories/tree-category - 316a886a-5f5b-4f7d-929d-daf3a78f2d22 - Request To Server - {}
+2025-01-22 00:20:45 - ERROR - GET /admin/categories/tree-category - 7c81afa1-7368-4cdf-af28-6993ac127c9d - Time response: 2ms - {"message":"Error: Hãy đăng nhập lại","module":"at module.exports.requireAuth ","file":"\\auth.middleware.js:44:29"}
+2025-01-22 00:21:26 - INFO - GET /admin/categories/tree-category - 5cb03603-17b1-424e-9f7a-c5c3ee9d6ef9 - Request To Server - {}
+2025-01-22 00:21:26 - ERROR - GET /admin/categories/tree-category - 645f5929-c6fa-4794-bc52-fc12f849dedc - Time response: NaNms - {"message":"Error: Not Found URL","module":"at D:\\Software\\Project\\management-backend-api\\routes\\error\\error.route.js:18:23"}
+2025-01-22 00:22:00 - INFO - GET /admin/categories/tree-category - c4c00b34-9527-4945-9c83-dddf14090d63 - Request To Server - {}
+2025-01-22 00:22:24 - INFO - GET /admin/categories/tree-category - ab531d10-b4fc-4661-9d77-9ccdfdc3fd7c - Request To Server - {}
+2025-01-22 00:22:28 - INFO - GET /admin/categories/tree-category - d5859ab9-570c-4fc9-8cf9-2802d94296c2 - Request To Server - {}
+2025-01-22 00:23:11 - INFO - GET /admin/categories/tree-category - 8aac16ee-5f17-449b-8e6e-1cfbb4d19331 - Request To Server - {}
+2025-01-22 00:24:17 - INFO - GET /admin/categories/tree-category - cde33ba7-bb2c-4142-b3d1-278272375811 - Request To Server - {}
+2025-01-22 00:25:41 - INFO - GET /admin/categories/tree-category - 9b6679f4-6787-494c-9852-7046c095d489 - Request To Server - {}
+2025-01-22 00:26:07 - INFO - GET /admin/categories/tree-category - 9d1b9fbb-6354-40d3-8435-5e6db3118939 - Request To Server - {}
+2025-01-22 00:27:57 - INFO - POST /admin/categories/create - 59600d05-c097-447a-93c8-2bd677308332 - Request To Server - {"body":{"parent_categoryId":"6773ed0c305e8d22e92ba096","name":"Keigo Higashino","description":"Lôi cuốn, gây cấn và hồi hộp","thumb":"Đang cập nhật","category_accountId":"677229b88d0a7747ccddf270"}}
+2025-01-22 00:28:27 - INFO - POST /admin/categories/create - bf37862c-45bb-4f30-a8b7-f7adeae21054 - Request To Server - {"body":{"parent_categoryId":"6773ed0c305e8d22e92ba096","name":"Lôi Mễ","description":"Lôi cuốn, gây cấn và hồi hộp","thumb":"Đang cập nhật","category_accountId":"677229b88d0a7747ccddf270"}}
+2025-01-22 00:28:58 - INFO - POST /admin/categories/create - f152e662-6ed6-4c44-ab0a-b62d9d780555 - Request To Server - {"body":{"parent_categoryId":"678fd91d2bec3b15f2997185","name":"Danh mục con của Keigo Higashino","description":"Lôi cuốn, gây cấn và hồi hộp","thumb":"Đang cập nhật","category_accountId":"677229b88d0a7747ccddf270"}}
+2025-01-22 00:29:21 - INFO - GET /admin/categories/tree-category - c828a758-577f-4ebd-a016-403e8275b231 - Request To Server - {}
+2025-01-22 00:30:13 - INFO - GET /admin/categories/tree-category - f7f55d05-7d72-47e0-a573-c3c701097c4c - Request To Server - {}
+2025-01-22 00:31:00 - INFO - GET /admin/categories/tree-category - 774f0571-91c3-4367-af0d-6177b0dc102d - Request To Server - {}
+2025-01-22 00:32:05 - INFO - GET /admin/categories/tree-category - 907b28ea-01b2-495b-8013-f5ac1999fac2 - Request To Server - {}
+2025-01-22 00:32:19 - INFO - GET /admin/categories/tree-category - 27385850-72e0-4c0e-9a0a-d68fb7e5be0d - Request To Server - {}
+2025-01-22 00:33:05 - INFO - GET /admin/categories/tree-category - 46077cce-47da-45e6-af3f-0df0ba84a97d - Request To Server - {}
+2025-01-22 00:33:30 - INFO - GET /admin/categories/tree-category - 6888996b-0afa-4192-869b-8eb4ae4d98b5 - Request To Server - {}
+2025-01-22 00:34:00 - INFO - GET / - f5992067-e015-4d94-a998-78ff0593a34c - Request To Server - {}
+2025-01-22 00:34:00 - ERROR - GET / - 1fce0fd4-2ba9-42e7-addb-dea0839df58e - Time response: NaNms - {"message":"Error: Not Found URL","module":"at D:\\Software\\Project\\management-backend-api\\routes\\error\\error.route.js:18:23"}
+2025-01-22 00:34:01 - INFO - GET /favicon.ico - ef6d6c50-a812-4d41-b457-e0aecd3a5666 - Request To Server - {}
+2025-01-22 00:34:01 - ERROR - GET /favicon.ico - cbefb763-5c92-49a2-b89a-48cf2bf25d13 - Time response: NaNms - {"message":"Error: Not Found URL","module":"at D:\\Software\\Project\\management-backend-api\\routes\\error\\error.route.js:18:23"}
+2025-01-22 00:35:04 - INFO - GET /admin/categories/tree-category - dd69029f-3b73-4e66-b7d4-94bfc23fa810 - Request To Server - {}
+2025-01-22 00:35:04 - ERROR - GET /admin/categories/tree-category - c7387e7b-a69c-4655-87f4-95e8cfc67285 - Time response: 1ms - {"message":"Error: Hãy đăng nhập lại","module":"at module.exports.requireAuth ","file":"\\auth.middleware.js:44:29"}
+2025-01-22 00:35:04 - INFO - GET /favicon.ico - 78eb8892-5382-4110-953b-4dd55435aec6 - Request To Server - {}
+2025-01-22 00:35:04 - ERROR - GET /favicon.ico - b2e7ac22-5bc8-4c73-8757-9a6243f087ed - Time response: NaNms - {"message":"Error: Not Found URL","module":"at D:\\Software\\Project\\management-backend-api\\routes\\error\\error.route.js:18:23"}
+2025-01-22 00:35:08 - INFO - GET /admin/categories/tree-category - 79d956a0-dd23-4bcd-8e39-3880fcfc59f6 - Request To Server - {}
+2025-01-22 00:35:08 - ERROR - GET /admin/categories/tree-category - 16554faa-c29d-4706-864f-5dbc6c451200 - Time response: 1ms - {"message":"Error: Hãy đăng nhập lại","module":"at module.exports.requireAuth ","file":"\\auth.middleware.js:44:29"}
+2025-01-22 00:35:08 - INFO - GET /favicon.ico - 94049f1d-124c-4f90-8f1f-36da30718004 - Request To Server - {}
+2025-01-22 00:35:08 - ERROR - GET /favicon.ico - 805d5bb4-9f57-4d52-8731-19f8acb2b76e - Time response: NaNms - {"message":"Error: Not Found URL","module":"at D:\\Software\\Project\\management-backend-api\\routes\\error\\error.route.js:18:23"}
+2025-01-22 00:35:25 - INFO - GET /admin/categories/tree-category - c8ec5428-45b9-43ce-bdb9-74191702801f - Request To Server - {}
+2025-01-22 00:35:26 - INFO - GET /favicon.ico - 8d9794c6-e275-4a89-b008-afdf4becbab8 - Request To Server - {}
+2025-01-22 00:35:26 - ERROR - GET /favicon.ico - 0b7ef021-5a3b-4036-86cb-f0dc41ee64ec - Time response: NaNms - {"message":"Error: Not Found URL","module":"at D:\\Software\\Project\\management-backend-api\\routes\\error\\error.route.js:18:23"}
+2025-01-22 00:37:08 - INFO - GET /admin/categories/tree-category - f8f4d711-fea3-4f3e-a2e9-15aa0a980f85 - Request To Server - {}
+2025-01-22 00:38:08 - INFO - GET /admin/categories/tree-category - 06bc1b78-b585-44f4-8d86-5f26c91759ea - Request To Server - {}
+2025-01-22 00:38:38 - INFO - GET /admin/categories/tree-category - cff92e87-bbac-42a0-98ef-d0c90821ab9c - Request To Server - {}
+2025-01-22 00:39:02 - INFO - GET /admin/categories/tree-category - 949185ce-0756-4a39-81bb-bde3faf1124f - Request To Server - {}
+2025-01-22 00:40:16 - INFO - GET /admin/categories/tree-category - 101b7806-8102-426c-8ba7-3407bc81f328 - Request To Server - {}
+2025-01-22 00:40:38 - INFO - GET /admin/categories/tree-category - c95526bb-0fda-473c-97f8-b3f4f0398e1e - Request To Server - {}
+2025-01-22 00:41:26 - INFO - GET /admin/categories/tree-category - bae98843-dd03-46f8-8af5-92da2b4145cb - Request To Server - {}
+2025-01-22 00:42:44 - INFO - GET /admin/categories/tree-category - 3e210aea-c15d-46fc-aa0e-d297218d95da - Request To Server - {}
+2025-01-22 00:43:06 - INFO - GET /admin/categories/tree-category - e3c4c4b6-fd94-4331-af16-15af42a0d710 - Request To Server - {}
+2025-01-22 00:45:26 - INFO - GET /admin/categories/tree-category - 4ff05c79-9446-4c8d-9c58-793770a75a54 - Request To Server - {}
+2025-01-22 00:46:09 - INFO - GET /admin/categories/tree-category - 2950acf3-c735-40e4-8910-8fde5df5409a - Request To Server - {}
+2025-01-22 00:49:00 - INFO - GET /admin/categories/tree-category - b465170f-148d-47f5-850d-70ab0bb5451e - Request To Server - {}
+2025-01-22 00:50:01 - INFO - GET /admin/categories/tree-category - 44f6c24f-02c7-4721-8a43-3ecdd4216dd2 - Request To Server - {}
+2025-01-22 00:50:30 - INFO - GET /admin/categories/tree-category - 88db0989-d6bb-4dc8-9269-840039e772e3 - Request To Server - {}
+2025-01-22 00:56:21 - INFO - GET /admin/categories/tree-category - f273ce4f-7841-4f0b-821f-91759b5d5ffc - Request To Server - {}
+2025-01-22 00:59:04 - INFO - GET /admin/categories/tree-category - 7b700732-d21c-4dea-b486-30d5f33b96e4 - Request To Server - {}
+2025-01-22 00:59:12 - INFO - GET /admin/categories/tree-category - cea0b8bd-66e7-416d-9438-9c65c1faa25e - Request To Server - {}
+2025-01-22 00:59:33 - INFO - GET /admin/categories/tree-category - 409365f9-c227-4d20-af2e-1c3af7dea03e - Request To Server - {}
+2025-01-22 01:00:46 - INFO - GET /admin/categories/tree-category - e1e25a13-e049-466c-bfab-7ead5bea5b0f - Request To Server - {}
+2025-01-22 01:01:17 - INFO - GET /admin/categories/tree-category - 07c0a5a9-1864-473c-b00d-b2a3a27c4783 - Request To Server - {}
+2025-01-22 01:01:31 - INFO - GET /admin/categories/tree-category - 121b52e0-eaaf-4fe3-8dba-853ef2efd906 - Request To Server - {}

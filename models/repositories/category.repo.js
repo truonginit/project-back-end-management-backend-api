@@ -31,7 +31,7 @@ module.exports.findAllCategory = async ({ status, isDeleted , unSelect = ['__v']
         category_status: status,
         category_isDeleted: isDeleted
     };
-
+    
     return await CategoryModel.find(removeFieldNullOrUndefined(filter))
                               .select(unSelectFieldInMongoose(unSelect))
                               .lean(isLean);

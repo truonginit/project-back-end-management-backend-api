@@ -36,6 +36,21 @@ module.exports.findDetailCategoryById = async (req, res, next) => {
     }).send(res);
 }
 
+
+// [GET] /admin/categories/tree-category
+/**
+ * @description Lấy cây danh mục
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
+module.exports.getTreeCategory = async (req, res, next) => {
+    new SuccessResponse({
+        message: 'Lấy cây danh mục thành công',
+        metadata: await CategoryService.getTreeCategory()
+    }).send(res);
+}
+
 // [POST] /admin/categories/create
 /**
  * @description Tạo danh mục mới
