@@ -64,6 +64,11 @@ class CategoryService {
     static findAllCategory = async ({ status, isDeleted }) => {
         return await findAllCategory({ status, isDeleted })
     }
+
+
+    static findDetailCategoryById = async ({ categoryId, status, isDeleted }) => {
+        return await findCategoryById({categoryId , status, isDeleted });
+    }
 }
 
 // exports

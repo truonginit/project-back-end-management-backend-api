@@ -12,9 +12,10 @@ const { selectFieldInMongoose, removeFieldNullOrUndefined, parseObjectIdMongoose
 module.exports.findCategoryById = async ({ categoryId, status, isDeleted, isLean = true }) => {
     const filter = {
         _id: parseObjectIdMongoose(categoryId),
-        category_status: status,
-        category_isDeleted: isDeleted
+        category_status: status || undefined,
+        category_isDeleted: isDeleted || undefined
     };
+
     return await CategoryModel.findOne(removeFieldNullOrUndefined(filter)).lean(isLean);
 }
 
@@ -30,6 +31,7 @@ module.exports.findAllCategory = async ({ status, isDeleted , unSelect = ['__v']
         category_status: status,
         category_isDeleted: isDeleted
     };
+
     return await CategoryModel.find(removeFieldNullOrUndefined(filter))
                               .select(unSelectFieldInMongoose(unSelect))
                               .lean(isLean);
