@@ -66,3 +66,12 @@ module.exports.createNewCategory = async (req, res, next) => {
         })
     }).send(res);
 }
+
+
+// [DELETE] /admin/categories/delete-soft/:id
+module.exports.deleteSoft = async (req, res, next) => {
+    new SuccessResponse({
+        message: 'Xóa danh mục thành công',
+        metadata: await CategoryService.deleteSoft({ categoryId: req.params.id })
+    }).send(res);
+}

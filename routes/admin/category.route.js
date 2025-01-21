@@ -14,7 +14,7 @@ const asyncHandler = require('../../helpers/asyncHandler.helper');
 const router = express.Router();
 
 // ###################### AUTHEN MIDDLEWARE ######################
-// router.use('', asyncHandler(requireAuth));
+router.use('', asyncHandler(requireAuth));
 
 // [GET]
 router.get('/', asyncHandler(categoryController.findAllCategory));
@@ -28,6 +28,8 @@ router.post('/create', asyncHandler(categoryController.createNewCategory));
 // [PATCH]
 
 
+// [DELETE]
+router.delete('/delete-soft/:id', asyncHandler(categoryController.deleteSoft));
 
 // exports
 module.exports = router;

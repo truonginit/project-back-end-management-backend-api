@@ -36,3 +36,17 @@ module.exports.findAllCategory = async ({ status, isDeleted , unSelect = ['__v']
                               .select(unSelectFieldInMongoose(unSelect))
                               .lean(isLean);
 }
+
+
+module.exports.deleteSoftById = async ({ categoryId, isLean = false }) => {
+    const foundCategory = await CategoryModel.findOne({_id: parseObjectIdMongoose(categoryId)})
+                                             .select(selectFieldInMongoose(["category_status", "category_isDeleted", "category_name", "category_slug"]))
+                                             .lean(isLean)
+    if(!foundCategory) return foundCategory;
+
+    foundCategory.category_status = "inactive";
+    foundCategory.category_isDeleted = true;
+    await foundCategory.save();
+
+    return foundCategory;
+}

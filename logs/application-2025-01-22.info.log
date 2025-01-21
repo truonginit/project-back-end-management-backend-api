@@ -60,3 +60,14 @@
 2025-01-22 01:00:46 - INFO - GET /admin/categories/tree-category - e1e25a13-e049-466c-bfab-7ead5bea5b0f - Request To Server - {}
 2025-01-22 01:01:17 - INFO - GET /admin/categories/tree-category - 07c0a5a9-1864-473c-b00d-b2a3a27c4783 - Request To Server - {}
 2025-01-22 01:01:31 - INFO - GET /admin/categories/tree-category - 121b52e0-eaaf-4fe3-8dba-853ef2efd906 - Request To Server - {}
+2025-01-22 01:15:20 - INFO - DELETE /admin/categories/delete-soft/678fd95a2bec3b15f299718f - 23eb8bea-24f7-4fd8-be2c-e9287ca40fa3 - Request To Server - {}
+2025-01-22 01:15:20 - ERROR - DELETE /admin/categories/delete-soft/678fd95a2bec3b15f299718f - f1e5c87d-9238-46ae-bf02-c282cacc3481 - Time response: NaNms - {"message":"Error: Not Found URL","module":"at D:\\Software\\Project\\management-backend-api\\routes\\error\\error.route.js:18:23"}
+2025-01-22 01:15:37 - INFO - DELETE /admin/categories/delete-soft/678fd95a2bec3b15f299718f - 53d469d0-c3f4-46a3-b9a1-7b9c8c806303 - Request To Server - {}
+2025-01-22 01:15:37 - ERROR - DELETE /admin/categories/delete-soft/678fd95a2bec3b15f299718f - e7685d4a-33a2-4276-8afb-825a5c7ad036 - Time response: NaNms - {"message":"Error: slugify: string argument expected","module":"at replace ","file":"\\slugify.js:20:13"}
+2025-01-22 01:16:23 - INFO - DELETE /admin/categories/delete-soft/678fd95a2bec3b15f299718f - e878a388-0925-427a-811d-0f8262f06220 - Request To Server - {}
+2025-01-22 01:16:23 - ERROR - DELETE /admin/categories/delete-soft/678fd95a2bec3b15f299718f - 28e16dd6-93db-4999-9aea-96c039805f20 - Time response: NaNms - {"message":"Error: slugify: string argument expected","module":"at replace ","file":"\\slugify.js:20:13"}
+2025-01-22 01:16:28 - INFO - DELETE /admin/categories/delete-soft/678fd95a2bec3b15f299718f - deb17246-afb6-4a6b-80a5-26d9ea8b26fa - Request To Server - {}
+2025-01-22 01:16:28 - ERROR - DELETE /admin/categories/delete-soft/678fd95a2bec3b15f299718f - 28f75cf5-df2c-49aa-92ca-ac439bedc829 - Time response: NaNms - {"message":"Error: slugify: string argument expected","module":"at replace ","file":"\\slugify.js:20:13"}
+2025-01-22 01:17:47 - INFO - DELETE /admin/categories/delete-soft/678fd95a2bec3b15f299718f - f9088473-b2a9-4cb2-9573-4fb6d77c70af - Request To Server - {}
+2025-01-22 01:17:47 - ERROR - DELETE /admin/categories/delete-soft/678fd95a2bec3b15f299718f - 33c4067b-bae3-4ff0-bc73-6d4e7681d4a6 - Time response: NaNms - {"message":"Error: slugify: string argument expected","module":"at replace ","file":"\\slugify.js:20:13"}
+2025-01-22 01:19:00 - INFO - DELETE /admin/categories/delete-soft/678fd95a2bec3b15f299718f - e6ab7ecf-34a5-4afb-975b-722a69358147 - Request To Server - {}

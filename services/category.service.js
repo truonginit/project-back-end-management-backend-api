@@ -4,7 +4,8 @@ const CategoryModel = require('../models/category.model');
 // repo
 const { 
     findCategoryById,
-    findAllCategory
+    findAllCategory,
+    deleteSoftById
 } = require('../models/repositories/category.repo');
 
 // core response
@@ -83,6 +84,17 @@ class CategoryService {
         const result = createTreeCategory(categories, "");
         console.log(`result::`, result); // mở log trên browser mới xem được
         return result;
+    }
+
+    /**
+     * @description Xóa mềm 1 danh mục 
+     * @param {String} categoryId 
+     * @returns 
+    */
+    static deleteSoft = async ({ categoryId }) => {
+        const foundCategory = await deleteSoftById({ categoryId });
+        if(!foundCategory) throw new NotFoundError(`Category not exists`);
+        return foundCategory;
     }
 }
 
