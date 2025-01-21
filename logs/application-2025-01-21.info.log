@@ -69,3 +69,12 @@
 2025-01-21 21:34:24 - INFO - POST /admin/accounts/login - 7af58a55-18c6-4666-992b-5f6182888833 - Request To Server - {"body":{"email":"giangtruong100702@gmail.com","password":"matKhauSieuManh"}}
 2025-01-21 21:34:24 - ERROR - POST /admin/accounts/login - 2ab4d99c-53dc-44bc-a8ad-2bb89a69fb23 - Time response: 1ms - {"message":"Error: Đăng nhập thất bại","module":"at AccountService.loginAccount ","file":"\\account.service.js:105:35"}
 2025-01-21 23:09:42 - INFO - PATCH /admin/accounts/update-my-password - 14fc7f85-a61c-4479-a6ee-1c1fb3356e0b - Request To Server - {"body":{"oldPassword":"sieuManhMatKhau","newPassword":"matKhauSieuManh","confirmNewPassword":"matKhauSieuManh"}}
+2025-01-21 23:46:11 - INFO - GET /admin/categories - 9459c3af-a0c1-4834-8777-e19fb285a5dc - Request To Server - {}
+2025-01-21 23:46:11 - ERROR - GET /admin/categories - 09d952f9-0e31-4bf8-9027-9b69e37665e3 - Time response: NaNms - {"message":"ReferenceError: categoryId is not defined","module":"at module.exports.findAllCategory ","file":"\\category.repo.js:24:36"}
+2025-01-21 23:46:59 - INFO - GET /admin/categories - ceb7cd87-7bfb-4846-9f04-33e21d4baabc - Request To Server - {}
+2025-01-21 23:48:07 - INFO - GET /admin/categories - 0298b295-7f60-45d7-bfe2-ed7435d3411e - Request To Server - {}
+2025-01-21 23:48:28 - INFO - GET /admin/categories - 18193559-7b6a-4aca-9018-b261c4af8795 - Request To Server - {}
+2025-01-21 23:49:44 - INFO - GET /admin/categories - f75dd236-f54b-4952-85ef-6cd9b6cdeb2c - Request To Server - {}
+2025-01-21 23:50:01 - INFO - GET /admin/categories - 45767b93-307a-44a0-99d3-75f82daf67b4 - Request To Server - {}
+2025-01-21 23:50:18 - INFO - GET /admin/categories - f226307e-2ff9-41c2-bc13-df61263dab57 - Request To Server - {}
+2025-01-21 23:50:35 - INFO - GET /admin/categories - ac6eb2c0-19c0-4adb-8939-d4fc38118bc4 - Request To Server - {}

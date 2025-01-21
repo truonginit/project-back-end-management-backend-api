@@ -2,7 +2,10 @@
 const CategoryModel = require('../models/category.model');
 
 // repo
-const { findCategoryById } = require('../models/repositories/category.repo');
+const { 
+    findCategoryById,
+    findAllCategory
+} = require('../models/repositories/category.repo');
 
 // core response
 const { BadRequestError, NotFoundError } = require('../core/error.response');
@@ -50,6 +53,16 @@ class CategoryService {
         ];
 
         return pickFieldInObject({ object: newCategory, field: fieldSelect });
+    }
+
+    /**
+     * @description Lấy danh sách danh mục
+     * @param {String} status 
+     * @param {Boolean} isDeleted 
+     * @returns 
+     */
+    static findAllCategory = async ({ status, isDeleted }) => {
+        return await findAllCategory({ status, isDeleted })
     }
 }
 

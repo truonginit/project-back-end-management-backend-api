@@ -17,7 +17,7 @@ const router = express.Router();
 router.use('', asyncHandler(requireAuth));
 
 // [GET]
-
+router.get('/', asyncHandler(categoryController.findAllCategory));
 
 // [POST]
 router.post('/create', asyncHandler(categoryController.createNewCategory));
