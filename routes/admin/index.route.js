@@ -21,7 +21,7 @@ const asyncHandler = require('../../helpers/asyncHandler.helper');
 module.exports = ( app ) => {
     const PATH_ADMIN = VariableConfig.PATH_ADMIN
 
-    app.use(pushToLogDiscord);      // gửi log lên discord
+    // app.use(pushToLogDiscord);      // gửi log lên discord
 
     // require authentication (từ từ nếu để chung ở đây sẽ có bất cập nha)
 

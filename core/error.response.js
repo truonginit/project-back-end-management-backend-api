@@ -2,7 +2,8 @@
  * @description Core Response Error 
 */
 
-const logger = require("../loggers/wiston.log");
+// const logger = require("../loggers/wiston.log"); // dùng test thử thử
+const MyLoggerService = require('../loggers/my-logger.log');
 
 // status code
 const statusCode = {
@@ -33,14 +34,28 @@ const reasonStatusCode = {
 class ErrorResponse extends Error {
     constructor (status, message) {
         super(message); // gọi constructor Error ... new Error('thông điệp truyền tải');
-
-        // ...
-        // this lúc này chính là class Error
-        // ...
-
-        logger.error(`${status} - ${this.message}`);
         
-        this.status = status;
+        this.status = status; 
+        this.now    = Date.now(); // thời gian mà response
+        // ...
+        // vì this lúc này chính là class Error
+        // và class Error không có property status 
+        // nên ta không thể đặt this.status lên trên super(...)
+        // vì nếu vậy sẽ ảnh hưởng đến class Error
+        // ...
+
+        // ## TEST LOG ## //
+        // logger.error(`${status} - ${this.message}`); không nên ghi trong đây, ghi vào router error là chuẩn chỉnh
+        
+        // const paramsTypeObject = {
+        //     context: 'POST /v1/api/login',
+        //     // req: {requestId: 'xxxyyyzzz'},
+        //     metadata: { error: 'Bad request error' }
+        // }
+
+        // MyLoggerService.logError(this.message, paramsTypeObject);
+        
+        // MyLoggerService.error(this.message, ['/v1/api/login', 'vv33344', { error: 'Bad request error' }]);
     }
 }
 

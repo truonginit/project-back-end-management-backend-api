@@ -47,9 +47,6 @@ module.exports.findDetailAccountById = async (req, res, next) => {
  * @return {JSON}
 */
 module.exports.createAccount = async (req, res, next) => {
-
-    throw new BadRequestError('Winston: Kiểm thử lỗi');
-
     new SuccessResponse({
         message: 'Tạo mới tài khoản quản trị thành công',
         metadata: await AccountService.createAccount(req.body)

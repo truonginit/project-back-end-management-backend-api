@@ -1,3 +1,7 @@
+/**
+ * @description GHI LOG BASIC
+ * ... 
+*/
 // package
 const winston = require('winston');
 const { combine, timestamp, printf, align } = winston.format;
@@ -9,7 +13,7 @@ const { WINSTON_ENV } = process.env;
 const logger = winston.createLogger({
       level: WINSTON_ENV || 'debug',   // cái này phải đọc theo trên docs chứ không phải muốn ghi gì ghi
       format: combine(
-        timestamp({ format: 'YYYY-MM-DD HH:mm:ss.SSS A' }),
+        timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
         align(),
         printf(info => `[${info.timestamp}] ${info.level} : ${info.message}`)
       ),

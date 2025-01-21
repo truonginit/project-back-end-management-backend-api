@@ -12,6 +12,7 @@ const InstanceMongo = require('./databases/mongodb');
 // require router
 const adminRouter = require('./routes/admin/index.route');
 const errorRouter = require('./routes/error/error.route');
+const preRouter   = require('./routes/logs/preRouter.route');
 
 // initialize database
 InstanceMongo.connect();
@@ -31,6 +32,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 // initialize router
+preRouter(app);     // router track log
 adminRouter(app);
 errorRouter(app);
 

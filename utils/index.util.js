@@ -64,3 +64,15 @@ module.exports.removeFieldNullOrUndefined = (obj = {}) => {
     });
     return obj;
 }
+
+/**
+ * @description remove key object của 1 object nếu nó là empty {}
+ * @param {Object} obj 
+*/
+module.exports.removeObjectInObjectIsEmpty = (obj = {}) => {
+    Object.keys(obj).forEach( keyOfObject => {
+        const item = obj[keyOfObject];
+        if(Object.keys(item).length === 0) delete obj[keyOfObject];
+    });
+    return obj;
+}
