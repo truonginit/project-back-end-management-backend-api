@@ -13,7 +13,7 @@ const COLLECTION_NAME = 'roles';
 // Khai báo schema
 const roleSchema = new mongoose.Schema({
     // _id này mongoose sẽ tự generate ra và dùng _id này để tạo sản phẩm
-
+    // role_title: {type: String, required: true}, // ví dụ: super_admin, admin,
     role_name: { type: String, required: true },
     role_description: { type: String, required: true },
     role_status: { type: String, default: 'inactive', enum: ['active', 'inactive'] },
@@ -21,7 +21,7 @@ const roleSchema = new mongoose.Schema({
     role_accountId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Account' }, // tài khoản tạo role này
     role_slug: { type: String }, // giúp tìm kiếm trong database dễ dàng hơn, lưu ý cái này không phải sản phẩm nền không cần random string phía sau
 
-    // ########## PHÂN QUYỀN ########## //
+    // ########## PHÂN QUYỀN LEVEL 0 ########## //
     /**
         role_permissions: [
             "account_view",     // xem được danh sách, chi tiết tài khoản quản trị

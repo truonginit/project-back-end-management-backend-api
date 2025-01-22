@@ -29,7 +29,8 @@ module.exports.createNewRole = async (req, res, next) => {
     new SuccessResponse({
         message: 'Tạo nhóm quyền mới thành công',
         metadata: await RoleService.createNewRole({
-            ...req.body
+            ...req.body,
+            accountId: req.account.accountId
         })
     }).send(res);
 }

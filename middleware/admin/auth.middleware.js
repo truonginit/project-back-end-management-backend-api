@@ -7,6 +7,7 @@ const KeyStore       = require('../../services/keyStore.service');
 
 // auth util
 const { verifyToken } = require('../../auth/authUtils');
+const { findAccountWithPopulate } = require('../../models/repositories/account.repo');
 
 // header http
 const HEADERS = {
@@ -53,8 +54,17 @@ module.exports.requireAuth = async (req, res, next) => {
 
     // ############# Kiểm tra accessToken #############
     if(!accessToken) throw new NotFoundError('Không tìm thấy accessToken');
-    req.account =  await verifyAccessToken(accessToken, privateKey, accountId); // res.locals.account hoặc req.account = reuslt vẫn ok
-    // req.role    = ... 
+    
+    // Lấy role và permissions theo accoutnId
+    const populate = {
+        path:   "account_roleId",
+        select: "_id role_name role_permissions"
+    }
+    const filter = { _id: accountId, account_isDeleted: false}
+    const foundAccount = await findAccountWithPopulate({ filter, populate})
+
+    req.account     =  await verifyAccessToken(accessToken, privateKey, accountId); // res.locals.account hoặc req.account = reuslt vẫn ok
+    req.account.roleId =  foundAccount.account_roleId.id;
 
     // next middleware
     next();
