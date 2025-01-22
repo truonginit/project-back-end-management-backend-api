@@ -84,5 +84,15 @@ module.exports.updatePassword = async (req, res, next) => {
             confirmNewPassword: req.body?.confirmNewPassword
         })
     }).send(res);
-    
+}
+
+// [PATCH] /admin/account/update-one-status/:id/:status
+module.exports.updateStatusWithOneAccount = async (req, res, next) => {
+    new SuccessResponse({
+        message: 'Cập nhật trạng thái tài khoản quản trị thành công',
+        metadata: await AccountService.updateStatusWithOneAccount({
+            accountId: req.params.id,
+            status: req.params.status
+        })
+    }).send(res);
 }

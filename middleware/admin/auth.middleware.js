@@ -54,6 +54,8 @@ module.exports.requireAuth = async (req, res, next) => {
     // ############# Kiểm tra accessToken #############
     if(!accessToken) throw new NotFoundError('Không tìm thấy accessToken');
     req.account =  await verifyAccessToken(accessToken, privateKey, accountId); // res.locals.account hoặc req.account = reuslt vẫn ok
+
+    
     // req.role    = ... 
 
     // next middleware

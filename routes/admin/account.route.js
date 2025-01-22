@@ -32,6 +32,7 @@ router.post('/create', validate(signUp), asyncHandler(accountController.createAc
     
 // [PATCH]
 router.patch('/update-my-password', validate(updateMyPassword), asyncHandler(accountController.updatePassword));
+router.patch('/update-one-status/:id/:status', asyncHandler(accountController.updateStatusWithOneAccount));
 
 // [DELETE]
 router.delete('/delete-soft/:id', asyncHandler(accountController.deleteSoftOneAccount));

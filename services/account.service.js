@@ -204,6 +204,27 @@ class AccountService {
         // response
         return pickFieldInObject({ object: foundAccount, field: fieldForPick });
     }
+
+    /**
+     * @description Thay đổi trạng thái của 1 tài khoản quản trị 
+     * @param {*} param0 
+     * @returns 
+     */
+    static updateStatusWithOneAccount = async ({ accountId, status }) => {
+        const StateOfStatus = ['active', 'inactive'];
+        if(!StateOfStatus.includes(status)) throw new BadRequestError(`status: ${status} is invalid`);  // status không hợp lệ
+
+        // 1. Kiểm tra xem accountId này có tồn tại không
+        const filter = { _id: accountId };
+        const foundAccount = await getFieldByFilter({ filter, select: ['account_status'], isLean: false });
+
+        if(!foundAccount) throw new NotFoundError('Not found account');     // không tìm thấy tài khoản này
+        // if(!foundAccount.account_isDeleted) ...
+
+        foundAccount.account_status = status;
+        await foundAccount.save();
+        return foundAccount;
+    }
 }
 
 // exports
