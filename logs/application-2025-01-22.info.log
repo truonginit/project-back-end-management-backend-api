@@ -135,3 +135,17 @@
 >>>>>>> parent of fec00db (tính năng)
 =======
 >>>>>>> 8c3f900c3f7f2712c35083a413a3b4d773df449f
+2025-01-22 19:46:46 - INFO - POST /admin/accounts/login - 7e57a4e8-70a1-4296-b073-93530bd41070 - Request To Server - {"body":{"email":"giangtruong100702@gmail.com","password":"matKhauSieuManh"}}
+2025-01-22 19:51:38 - INFO - GET /admin/roles/ - 59dacb58-73c0-4833-9bb7-c28764007ef5 - Request To Server - {}
+2025-01-22 19:51:38 - ERROR - GET /admin/roles/ - 12b26c91-4a84-4297-b46e-aec2f8f9f87b - Time response: NaNms - {"message":"ReferenceError: roleId is not defined","module":"at D:\\Software\\Project\\management-backend-api\\middleware\\admin\\permission.middleware.js:23:27"}
+2025-01-22 19:52:08 - INFO - GET /admin/roles/ - 4d4bfdc2-e075-49b9-8660-4ca05644cda0 - Request To Server - {}
+2025-01-22 19:52:08 - ERROR - GET /admin/roles/ - 24737c63-fdc3-4c19-8c72-40e298d85f73 - Time response: NaNms - {"message":"ReferenceError: roleId is not defined","module":"at D:\\Software\\Project\\management-backend-api\\middleware\\admin\\permission.middleware.js:23:27"}
+2025-01-22 19:52:09 - INFO - GET /admin/roles/ - f966056c-7504-464a-a9dc-fd97ef4cab12 - Request To Server - {}
+2025-01-22 19:52:09 - ERROR - GET /admin/roles/ - df159531-b90f-4413-9b92-e40e8d24e9af - Time response: NaNms - {"message":"ReferenceError: roleId is not defined","module":"at D:\\Software\\Project\\management-backend-api\\middleware\\admin\\permission.middleware.js:23:27"}
+2025-01-22 19:52:50 - INFO - GET /admin/roles/ - 0c9c77bd-e997-4872-96d0-1c7a1c0dc1af - Request To Server - {}
+2025-01-22 19:52:50 - ERROR - GET /admin/roles/ - 56a307a2-bf30-4bc2-ba71-3f4703c01323 - Time response: 0ms - {"message":"Error: Not Found Role","module":"at D:\\Software\\Project\\management-backend-api\\middleware\\admin\\permission.middleware.js:26:26"}
+2025-01-22 19:53:43 - INFO - GET /admin/roles/ - c735565e-35a8-434a-ae6c-15d168709502 - Request To Server - {}
+2025-01-22 19:53:43 - ERROR - GET /admin/roles/ - 2d1d0141-ca20-4e82-8a1f-92afe27b4610 - Time response: 3ms - {"message":"Error: Not Found Role","module":"at D:\\Software\\Project\\management-backend-api\\middleware\\admin\\permission.middleware.js:26:26"}
+2025-01-22 19:53:52 - INFO - POST /admin/accounts/login - 369ac230-6722-400e-a575-4bbaa2e3a07b - Request To Server - {"body":{"email":"giangtruong100702@gmail.com","password":"matKhauSieuManh"}}
+2025-01-22 19:54:04 - INFO - GET /admin/roles/detail/679089e47fb87100407f7495 - db3bf7a0-231a-4778-b974-6bd43524f4b1 - Request To Server - {}
+2025-01-22 19:54:08 - INFO - GET /admin/roles/ - ad5982c1-efe8-4159-8e39-d2963f3831bf - Request To Server - {}

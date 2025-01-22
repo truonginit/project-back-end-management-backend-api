@@ -110,7 +110,8 @@ class AccountService {
         // tạo accessToken và refreshToken
         const payload = {
             accountId: foundEmail._id, // tài khoản admin dùng chữ accountId cho chuẩn
-            email 
+            roleId: foundEmail.account_roleId,
+            email
         }
 
         const { accessToken, refreshToken } = await createPairToken({ payload, publicKey, privateKey });

@@ -6,6 +6,7 @@ const roleController = require('../../controllers/admin/role.controller');
 
 // middleware
 const { requireAuth } = require('../../middleware/admin/auth.middleware');
+const { permission  } = require('../../middleware/admin/permission.middleware'); 
 
 // helper
 const asyncHandler = require('../../helpers/asyncHandler.helper');
@@ -25,6 +26,9 @@ router.post('/create', permission("role_create"), asyncHandler(roleController.cr
 
 // [PATCH]
 router.patch('/update/:roleId', permission("role_update"), asyncHandler(roleController.updateRole));
+
+// [DELETE]
+
 
 
 // exports
