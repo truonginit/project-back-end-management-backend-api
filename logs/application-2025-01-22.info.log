@@ -128,3 +128,4 @@
 2025-01-22 14:44:09 - INFO - PATCH /admin/roles/update/67766ae1469923c85c526bb8 - d1e6b9ab-8358-46b1-b149-5f7388abccfb - Request To Server - {"body":{"name":"Siêu quản trị viên"}}
 2025-01-22 14:44:09 - ERROR - PATCH /admin/roles/update/67766ae1469923c85c526bb8 - 7c441953-b278-4e94-9eea-35f4e1c27c39 - Time response: 3ms - {"message":"Error: Không tìm thấy nhóm quyền này","module":"at RoleService.updateRole ","file":"\\role.service.js:73:30"}
 2025-01-22 14:44:25 - INFO - PATCH /admin/roles/update/679089e47fb87100407f7495 - 9bf7f9ad-ff87-46c9-83c0-30bacd6bfe59 - Request To Server - {"body":{"name":"Siêu quản trị viên"}}
+2025-01-22 15:00:06 - INFO - GET /admin/roles/detail/679089e47fb87100407f7495 - 31390034-4971-41ec-9a06-6b83d90dfdf9 - Request To Server - {}

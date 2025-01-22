@@ -18,25 +18,18 @@ const router = express.Router();
 router.use('', asyncHandler(requireAuth));
 
 // [GET]
-router.get(
-    '/', 
-    permission("role_view"),
-    asyncHandler(roleController.getListRole)
-);
-
+router.get('/', permission("role_view"), asyncHandler(roleController.getListRole));
+router.get('/detail/:id', permission("role_view"), asyncHandler(roleController.getDetailRole));
+    
 // [POST]
-router.post(
-    '/create', 
-    permission("role_create"),
-    asyncHandler(roleController.createNewRole)
-);
+router.post('/create', permission("role_create"), asyncHandler(roleController.createNewRole));
 
 // [PATCH]
-router.patch(
-    '/update/:roleId', 
-    permission("role_update"),
-    asyncHandler(roleController.updateRole)
-);
+router.patch('/update/:roleId', permission("role_update"), asyncHandler(roleController.updateRole));
+     
+    
+    
+
 
 
 // exports
