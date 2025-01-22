@@ -135,6 +135,12 @@ class RoleService {
         return await getListRole( removeFieldNullOrUndefined(filter) )
     }
 
+
+    /**
+     * @description Lấy chi tiết nhóm quyền theo ID
+     * @param {*} param0 
+     * @returns 
+    */
     static getDetailRoleById = async ({ roleId, status, isDeleted, unSelect = ["__v"], isLean = true }) => {
         const filter = {
             _id: parseObjectIdMongoose(roleId),
@@ -145,6 +151,26 @@ class RoleService {
         return await RoleModel.findOne(removeFieldNullOrUndefined(filter))
                               .select(unSelectFieldInMongoose(unSelect))
                               .lean(isLean);
+    }
+
+
+    /**
+     * @description Xóa mềm nhóm quyền 
+     * @param {String} roleId roleId của quyền muốn xóa 
+    */
+    static deleteSoft = async ({ roleId }) => {
+        // kiểm tra nhóm quyền này có tồn tại không
+        const foundRole = await findOneRoleById({ roleId, isLean: false });
+        if(!foundRole) throw new NotFoundError('Not found role want to delete');
+
+        // xóa mềm
+        foundRole.role_status = 'inactive';
+        foundRole.role_isDeleted = true;
+        await foundRole.save();
+        
+        // thay đổi tất cả các tài khoản mang nhóm quyền muốn xóa => "NHÂN VIÊN"
+    
+        return foundRole;
     }
 }
 

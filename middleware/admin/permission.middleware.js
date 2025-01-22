@@ -25,7 +25,7 @@ module.exports.permission = (entitle) => asyncHandler(async (req, res, next) => 
     const foundRole = await RoleModel.findOne(filter).lean();
     if(!foundRole) throw new NotFoundError('Not Found Role');
 
-    if(!foundRole.role_permissions.includes(entitle)) throw new (`You doesn't have ${entitle} permission`);
+    if(!foundRole.role_permissions.includes(entitle)) throw new NotFoundError(`You doesn't have ${entitle} permission`);
     
     next();
 })

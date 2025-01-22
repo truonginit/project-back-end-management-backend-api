@@ -8,7 +8,8 @@ const unidecode = require('unidecode');
 const { 
     selectFieldInMongoose, 
     removeFieldNullOrUndefined, 
-    parseObjectIdMongoose 
+    parseObjectIdMongoose, 
+    unSelectFieldInMongoose
 } = require('../../utils/index.util');
 
 
@@ -47,14 +48,16 @@ module.exports.findOneRoleByName = async ({ name }) => {
  * @param {*} param0 
  * @returns 
  */
-module.exports.findOneRoleById = async ({ roleId, status, isDeleted, isLean = true }) => {
+module.exports.findOneRoleById = async ({ roleId, status, isDeleted, unSelect = ['__v'], isLean = true }) => {
     const filter = {
         _id: parseObjectIdMongoose(roleId),
         role_status: status,
         role_isDeleted: isDeleted
     }
 
-    return await RoleModel.findOne(removeFieldNullOrUndefined(filter)).lean(isLean);
+    return await RoleModel.findOne(removeFieldNullOrUndefined(filter))
+                          .select(unSelectFieldInMongoose(unSelect))
+                          .lean(isLean);
 }
 
 /**

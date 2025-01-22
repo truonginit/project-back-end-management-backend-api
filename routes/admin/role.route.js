@@ -28,7 +28,7 @@ router.post('/create', permission("role_create"), asyncHandler(roleController.cr
 router.patch('/update/:roleId', permission("role_update"), asyncHandler(roleController.updateRole));
 
 // [DELETE]
-
+router.delete('/delete-soft/:id', permission("role_delete"), asyncHandler(roleController.deleteSoft));
 
 
 // exports

@@ -149,3 +149,13 @@
 2025-01-22 19:53:52 - INFO - POST /admin/accounts/login - 369ac230-6722-400e-a575-4bbaa2e3a07b - Request To Server - {"body":{"email":"giangtruong100702@gmail.com","password":"matKhauSieuManh"}}
 2025-01-22 19:54:04 - INFO - GET /admin/roles/detail/679089e47fb87100407f7495 - db3bf7a0-231a-4778-b974-6bd43524f4b1 - Request To Server - {}
 2025-01-22 19:54:08 - INFO - GET /admin/roles/ - ad5982c1-efe8-4159-8e39-d2963f3831bf - Request To Server - {}
+2025-01-22 19:58:24 - INFO - POST /admin/roles/create - ff34e905-d175-4f2a-822a-c35f52a97e02 - Request To Server - {"body":{"name":"Nhân viên","description":"Nhân viên, cũng dùng để gán nếu một quyền nào đó bị xóa"}}
+2025-01-22 19:58:24 - ERROR - POST /admin/roles/create - 94598f30-88a2-4f71-bb45-36f98c8d6fa0 - Time response: 1ms - {"message":"Error: You doesn't have role_create permission","module":"at D:\\Software\\Project\\management-backend-api\\middleware\\admin\\permission.middleware.js:28:61"}
+2025-01-22 19:58:44 - INFO - POST /admin/roles/create - c6d6176c-17c9-46c0-98f4-874fbc61e906 - Request To Server - {"body":{"name":"Nhân viên","description":"Nhân viên, cũng dùng để gán nếu một quyền nào đó bị xóa"}}
+2025-01-22 19:58:44 - ERROR - POST /admin/roles/create - 213e044b-5e85-419c-8451-c52274f52b7f - Time response: 0ms - {"message":"Error: Tài khoản tạo quyền này không hợp lệ","module":"at RoleService.createNewRole ","file":"\\role.service.js:44:33"}
+2025-01-22 19:59:32 - INFO - POST /admin/roles/create - 789879a6-737e-4317-84ce-a20c35f9ea74 - Request To Server - {"body":{"name":"Nhân viên","description":"Nhân viên, cũng dùng để gán nếu một quyền nào đó bị xóa"}}
+2025-01-22 20:01:16 - INFO - POST /admin/roles/create - b4329259-fc2f-4b51-b7cc-b6881099bb26 - Request To Server - {"body":{"name":"Quản lý sách","description":"Quản lý sách tất cả các thể loại"}}
+2025-01-22 20:13:20 - INFO - DELETE /admin/roles/delete-soft/6790ec1d0316ed4bb4ddd5e6 - cd2170df-a8a5-4a77-b7bc-80aa6445b9f5 - Request To Server - {}
+2025-01-22 20:13:21 - ERROR - DELETE /admin/roles/delete-soft/6790ec1d0316ed4bb4ddd5e6 - a1618db3-1578-4046-9203-b9667e09a67f - Time response: 1ms - {"message":"Error: You doesn't have role_delete permission","module":"at D:\\Software\\Project\\management-backend-api\\middleware\\admin\\permission.middleware.js:28:61"}
+2025-01-22 20:13:40 - INFO - DELETE /admin/roles/delete-soft/6790ec1d0316ed4bb4ddd5e6 - 7a7c5f46-e800-45c5-8d3b-64ea06dc047b - Request To Server - {}
+2025-01-22 20:14:19 - INFO - DELETE /admin/roles/delete-soft/6790ec1d0316ed4bb4ddd5e6 - c167ab02-e386-4849-b6fd-0183be8a9457 - Request To Server - {}

@@ -43,7 +43,8 @@ module.exports.createNewRole = async (req, res, next) => {
     new SuccessResponse({
         message: 'Tạo nhóm quyền mới thành công',
         metadata: await RoleService.createNewRole({
-            ...req.body
+            ...req.body,
+            accountId: req.account.accountId
         })
     }).send(res);
 }
@@ -55,6 +56,16 @@ module.exports.updateRole = async (req, res, next) => {
         metadata: await RoleService.updateRole({
             roleId: req.params.roleId,
             payload: req.body
+        })
+    }).send(res);
+}
+
+// [DELETE] /admin/roles/delete-soft/:id
+module.exports.deleteSoft = async (req, res, next) => {
+    new SuccessResponse({
+        message: 'Xóa nhóm quyền thành công',
+        metadata: await RoleService.deleteSoft({
+            roleId: req.params.id
         })
     }).send(res);
 }
