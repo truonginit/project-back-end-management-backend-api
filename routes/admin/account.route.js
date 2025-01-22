@@ -7,6 +7,7 @@ const accountController = require('../../controllers/admin/account.controller');
 // middleware
 const { requireAuth } = require('../../middleware/admin/auth.middleware');
 const { validate } = require('../../middleware/admin/validate.middleware');
+const { permission } = require('../../middleware/admin/permission.middleware');
 
 // helper
 const asyncHandler = require('../../helpers/asyncHandler.helper');
@@ -24,18 +25,41 @@ router.post('/login', validate(login), asyncHandler(accountController.loginAccou
 router.use('', asyncHandler(requireAuth));
 
 // [GET]
-router.get('/', asyncHandler(accountController.findAllAccount));
-router.get('/detail/:id', asyncHandler(accountController.findDetailAccountById));
+router.get('/', 
+    permission('account_view'), 
+    asyncHandler(accountController.findAllAccount)
+);
+
+router.get('/detail/:id', 
+    permission('account_view'), 
+    asyncHandler(accountController.findDetailAccountById)
+);
 
 // [POST]
-router.post('/create', validate(signUp), asyncHandler(accountController.createAccount));
+router.post('/create', 
+    permission('account_create'), 
+    validate(signUp), 
+    asyncHandler(accountController.createAccount)
+);
     
 // [PATCH]
-router.patch('/update-my-password', validate(updateMyPassword), asyncHandler(accountController.updatePassword));
-router.patch('/update-one-status/:id/:status', asyncHandler(accountController.updateStatusWithOneAccount));
+router.patch('/update-my-password', 
+    permission('account_update'), 
+    validate(updateMyPassword), 
+    asyncHandler(accountController.updatePassword)
+);
+
+router.patch('/update-one-status/:id/:status', 
+    permission('account_update'), 
+    // validate
+    asyncHandler(accountController.updateStatusWithOneAccount)
+);
 
 // [DELETE]
-router.delete('/delete-soft/:id', asyncHandler(accountController.deleteSoftOneAccount));
+router.delete('/delete-soft/:id',
+    permission('account_delete'), 
+    asyncHandler(accountController.deleteSoftOneAccount)
+);
 
 // exports
 module.exports = router;

@@ -8,6 +8,9 @@ const KeyStore       = require('../../services/keyStore.service');
 // auth util
 const { verifyToken } = require('../../auth/authUtils');
 
+// repo
+const { getFieldByFilter } = require('../../models/repositories/account.repo');
+
 // header http
 const HEADERS = {
     ADMIN_ID: 'x-admin-key',        // accountId của tài khoản quản trị
@@ -53,10 +56,15 @@ module.exports.requireAuth = async (req, res, next) => {
 
     // ############# Kiểm tra accessToken #############
     if(!accessToken) throw new NotFoundError('Không tìm thấy accessToken');
-    req.account =  await verifyAccessToken(accessToken, privateKey, accountId); // res.locals.account hoặc req.account = reuslt vẫn ok
+    const account =  await verifyAccessToken(accessToken, privateKey, accountId); // res.locals.account hoặc req.account = reuslt vẫn ok
 
+    // kiểm tra xem tài khoản này còn hoạt động không
+    const filter = {_id: account.accountId, account_isDeleted: false};
+    const foundAccount = await getFieldByFilter({ filter, select: ["account_status"]});
+    if(!foundAccount) throw new NotFoundError('Not found account');
+    if(foundAccount.account_status === 'inactive') throw new BadRequestError('Your account is inactive'); 
     
-    // req.role    = ... 
+    req.account = account;
 
     // next middleware
     next();
