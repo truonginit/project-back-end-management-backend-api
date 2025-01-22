@@ -12,7 +12,6 @@ const {
     parseObjectIdMongoose,
     unSelectFieldInMongoose
 } = require('../../utils/index.util');
-const { populate } = require('../role.model');
 
 /**
  * @description Kiểm tra xem email này đã tồn tại hay chưa
@@ -90,15 +89,6 @@ module.exports.deleteById = async ({ accountId }) => {
     return await AccountModel.updateOne(filter, update);
 }
 
-/**
- * Lấy thông tin của account theo select 
- * @param {*} param0 
- * @returns 
-*/
 module.exports.getFieldByFilter= async ({ filter, select = ["account_name", "account_email"], isLean = true }) => {
     return await AccountModel.findOne(filter).select(select).lean(isLean);
-}
-
-module.exports.findAccountWithPopulate = async ({ filter, populate  }) => {
-    return await AccountModel.findOne(filter).populate(populate)
 }

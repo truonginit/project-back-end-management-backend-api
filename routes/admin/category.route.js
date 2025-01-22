@@ -24,6 +24,7 @@ router.get('/tree-category', asyncHandler(categoryController.getTreeCategory));
 // [POST]
 router.post('/create', asyncHandler(categoryController.createNewCategory));
 
+
 // [PATCH]
 router.patch('/update-status/:id/:status', asyncHandler(categoryController.updateStatus));
 

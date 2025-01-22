@@ -18,6 +18,20 @@ module.exports.getListRole = async (req, res, next) => {
     }).send(res);
 }
 
+// [GET] /admin/roles/detail/:id
+/**
+ * @description Lấy chi tiết nhóm quyền
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
+module.exports.getDetailRole = async (req, res, next) => {
+    new SuccessResponse({
+        message: 'Lấy chi tiết nhóm quyền',
+        metadata: await RoleService.getDetailRoleById( { roleId: req.params.id } )
+    }).send(res);
+}
+
 // [POST] /admin/roles/create
 /**
  * @description Tạo nhóm quyền mới
@@ -29,8 +43,7 @@ module.exports.createNewRole = async (req, res, next) => {
     new SuccessResponse({
         message: 'Tạo nhóm quyền mới thành công',
         metadata: await RoleService.createNewRole({
-            ...req.body,
-            accountId: req.account.accountId
+            ...req.body
         })
     }).send(res);
 }

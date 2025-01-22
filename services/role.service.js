@@ -21,7 +21,8 @@ const {
     selectFieldInMongoose, 
     removeFieldNullOrUndefined, 
     parseObjectIdMongoose,
-    pickFieldInObject
+    pickFieldInObject,
+    unSelectFieldInMongoose
 } = require('../utils/index.util');
 
 const {
@@ -132,6 +133,18 @@ class RoleService {
         }
 
         return await getListRole( removeFieldNullOrUndefined(filter) )
+    }
+
+    static getDetailRoleById = async ({ roleId, status, isDeleted, unSelect = ["__v"], isLean = true }) => {
+        const filter = {
+            _id: parseObjectIdMongoose(roleId),
+            role_status: status,
+            role_isDeleted: isDeleted
+        }
+
+        return await RoleModel.findOne(removeFieldNullOrUndefined(filter))
+                              .select(unSelectFieldInMongoose(unSelect))
+                              .lean(isLean);
     }
 }
 

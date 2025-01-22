@@ -6,7 +6,6 @@ const roleController = require('../../controllers/admin/role.controller');
 
 // middleware
 const { requireAuth } = require('../../middleware/admin/auth.middleware');
-const { permission  } = require('../../middleware/admin/permission.middleware'); 
 
 // helper
 const asyncHandler = require('../../helpers/asyncHandler.helper');
@@ -18,25 +17,28 @@ const router = express.Router();
 router.use('', asyncHandler(requireAuth));
 
 // [GET]
-router.get(
-    '/', 
-    permission("role_view"),
-    asyncHandler(roleController.getListRole)
-);
-
+<<<<<<< HEAD
+router.get('/', permission("role_view"), asyncHandler(roleController.getListRole));
+router.get('/detail/:id', permission("role_view"), asyncHandler(roleController.getDetailRole));
+    
 // [POST]
-router.post(
-    '/create', 
-    permission("role_create"),
-    asyncHandler(roleController.createNewRole)
-);
+router.post('/create', permission("role_create"), asyncHandler(roleController.createNewRole));
 
 // [PATCH]
-router.patch(
-    '/update/:roleId', 
-    permission("role_update"),
-    asyncHandler(roleController.updateRole)
-);
+router.patch('/update/:roleId', permission("role_update"), asyncHandler(roleController.updateRole));
+     
+    
+    
+
+=======
+router.get('/', asyncHandler(roleController.getListRole));
+
+// [POST]
+router.post('/create', asyncHandler(roleController.createNewRole));
+
+// [PATCH]
+router.patch('/update/:roleId', asyncHandler(roleController.updateRole));
+>>>>>>> parent of fec00db (tính năng)
 
 
 // exports
