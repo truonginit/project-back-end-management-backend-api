@@ -14,6 +14,7 @@ const productRouter     = require('./product.route');
 const categoryRouter    = require('./category.route');
 const roleRouter        = require('./role.route');
 const uploadRouter        = require('./upload.route');
+const settingGeneralRouter        = require('./setting-general.route');
 
 // helper
 const asyncHandler = require('../../helpers/asyncHandler.helper');
@@ -34,4 +35,6 @@ module.exports = ( app ) => {
     app.use(PATH_ADMIN + '/roles',      roleRouter);
 
     app.use(PATH_ADMIN + '/uploads',      uploadRouter);
+
+    app.use(PATH_ADMIN + '/setting-general',      settingGeneralRouter);
 }
