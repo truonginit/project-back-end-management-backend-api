@@ -11,6 +11,7 @@ const InstanceMongo = require('./databases/mongodb');
 
 // require router
 const adminRouter = require('./routes/admin/index.route');
+const clientRouter = require('./routes/client/index.route');
 const errorRouter = require('./routes/error/error.route');
 const preRouter   = require('./routes/logs/preRouter.route');
 
@@ -34,6 +35,7 @@ app.use(express.urlencoded({extended: true}));
 // initialize router
 preRouter(app);     // router track log
 adminRouter(app);
+clientRouter(app);
 errorRouter(app);
 
 // listen server
