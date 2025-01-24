@@ -20,7 +20,7 @@ const { pickFieldInObject } = require('../utils/index.util');
 class UserService {
 
     /**
-     * @description Đăng ký tài khoản khách hàng 
+     * @description Đăng ký tài khoản khách hàng (Khi đăng ký thì sẽ vào luôn)
      * @param {String} email
      * @param {String} password
      * @returns 
@@ -73,6 +73,34 @@ class UserService {
             accessToken, 
             refreshToken
         }
+    }
+
+    /**
+     * @description Đăng ký tài khoản khách hàng (Khi đăng ký thì sẽ gửi link xác nhận qua email)
+     * @param {String} email
+     * @param {String} password
+     * @returns 
+    */
+    static signUpV2 = async ({ email, password }) => {
+        // 1. Kiểm tra xem email này có tồn tại không
+        const isEmailExits = await CheckEmailExists({ email });
+
+        if(isEmailExits) throw new BadRequestError('Email is exists');
+
+        // 2. Băm mật khẩu
+        const passwordHashed = bcrypt.hashSync(password, SALT_ROUNDS);
+
+        // 3. Tạo mới tài khoản
+        const newUser = await UserModel.create({
+            user_name: email.slice(0, email.indexOf('@')),
+            user_email: email,
+            user_password: passwordHashed
+        });
+
+        if(!newUser) throw new BadRequestError('Create new user failure');
+
+        // --------- SỬ DỤNG SEND MAIL LINK ĐỂ XÁC NHẬN MAIL -------- //
+
     }
 
     /**

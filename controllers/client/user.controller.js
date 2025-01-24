@@ -37,7 +37,7 @@ module.exports.signUp = async (req, res, next) => {
 */
 module.exports.login = async (req, res, next) => {
     // // test chức năng gửi mail
-    // await MailService.sendToOneRecipient({ toEmail: req.body.email });
+    await MailService.sendToOneRecipient({ toEmail: req.body.email });
 
     // -----
     new SuccessResponse({

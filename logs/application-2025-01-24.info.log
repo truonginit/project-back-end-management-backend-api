@@ -27,3 +27,5 @@
 2025-01-24 15:00:07 - INFO - POST /user/login - fbebbe44-a117-45b8-81d4-fab1a2bda5da - Request To Server - {"body":{"email":"giangtruong100702@gmail.com","password":"matKhauSieuManh"}}
 2025-01-24 15:00:08 - ERROR - POST /user/login - 7e364fa3-2147-492f-8c11-b01e4515f732 - Time response: NaNms - {"message":"Error: No recipients defined","module":"at SMTPConnection._formatError ","file":"\\index.js:809:19"}
 2025-01-24 15:03:52 - INFO - POST /user/login - 2dcbda63-66b1-468c-809e-cbd9c1967d60 - Request To Server - {"body":{"email":"giangtruong100702@gmail.com","password":"matKhauSieuManh"}}
+2025-01-24 19:12:10 - INFO - POST /user/login - 1b9da504-ecb4-4349-99d2-f0c08ca4483f - Request To Server - {"body":{"email":"giangtruong100702@gmail.com","password":"matKhauSieuManh"}}
+2025-01-24 19:13:18 - INFO - POST /user/login - 9482cca1-d1e6-4198-9fee-12d2f9561eaf - Request To Server - {"body":{"email":"giangtruong100702@gmail.com","password":"matKhauSieuManh"}}
