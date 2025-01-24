@@ -18,7 +18,7 @@ class MailService {
             from: MAIL_USERNAME,
             to:   toEmail,          // gửi đến email
             subject: subject,
-            html: '<h1>Welcome</h1><p>That was easy!</p>'
+            html: content
         }
 
         // Send email

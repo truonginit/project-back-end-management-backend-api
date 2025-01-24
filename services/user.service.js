@@ -1,5 +1,10 @@
 // model
 const UserModel = require('../models/user.model');
+const OtpModel  = require('../models/otp.model');
+
+// require service
+const MailService = require('../services/mail.service');
+const KeyStoreService = require('./keyStore.service');
 
 // repo
 const {
@@ -10,11 +15,18 @@ const {
 const bcrypt = require('bcrypt');
 const SALT_ROUNDS = 10;
 
+// require core response
 const { BadRequestError, NotFoundError } = require('../core/error.response');
-const { generatePairKey } = require('../utils/generate.util');
-const { createPairToken } = require('../auth/authUtils');
-const KeyStoreService = require('./keyStore.service');
+
+// require util
+const { 
+    generatePairKey,
+    generateRandomNumString
+} = require('../utils/generate.util');
 const { pickFieldInObject } = require('../utils/index.util');
+const { createPairToken } = require('../auth/authUtils');
+
+
 
 // service
 class UserService {
@@ -150,6 +162,32 @@ class UserService {
             accessToken, 
             refreshToken
         }
+    }
+    
+    /**
+     * @description Quên mật khẩu => gửi OTP qua mail
+     * @param {*} param0 
+     * @returns 
+     */
+    static forgotPassword = async ({ email }) => {
+        // 1. xác định xem email này có tồn tại không
+        const isEmail = await CheckEmailExists({ email, isLean: false });
+        if(!isEmail) throw new NotFoundError('Not found your email');       // email không hợp lệ
+
+        // trạng thái không hợp lý. Ví dụ 'pending' thì chưa xác nhận email
+        if(isEmail.user_status !== 'active') throw new BadRequestError(`Your status is ${isEmail.user_status}`);
+        
+        // 2. Check xem với email này đã có OTP nào chưa. Nếu có thì xóa cái OTP cũ
+        await OtpModel.deleteOne({ otp_email: email });
+
+        // 3. Tạo mã OTP và Lưu OTP vào DB
+        const otp = generateRandomNumString(6);
+        const newOtp = await OtpModel.create({ otp_code: otp, otp_email: email });
+
+        // 4. Gửi mail OTP
+        await MailService.sendToOneRecipient({ toEmail: email, subject: 'Mã OTP Xác Nhận', content: `Mã OTP: ${otp}` });
+
+        return otp;
     }
 }
 

@@ -26,3 +26,13 @@ module.exports.generatePairKey = (length) => {
     const privateKey = crypto.randomBytes(length).toString('hex');
     return { publicKey, privateKey };
 }
+
+
+module.exports.generateRandomNumString = (length) => {
+    const characteristics = "0123456789";
+    let result = "";
+    for(let index = 0 ; index < length ; index++) {
+        result += characteristics.charAt(Math.floor(Math.random() * characteristics.length ));
+    }
+    return result;
+}

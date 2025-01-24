@@ -45,3 +45,11 @@ module.exports.login = async (req, res, next) => {
         metadata: await UserService.login(req.body)
     }).send(res);
 }
+
+// [POST] /user/forgot-password
+module.exports.forgotPassword = async (req, res, next) => {
+    new SuccessResponse({
+        message: 'Quên mật khẩu',
+        metadata: await UserService.forgotPassword(req.body)
+    }).send(res);
+}
