@@ -5,7 +5,7 @@ const UserService = require('../../services/user.service');
 const { SuccessResponse } = require('../../core/success.response');
 const { BadRequestError } = require('../../core/error.response');
 
-// [POST] /admin/accounts/create
+// [POST] /user/sign-up
 /**
  * @description Đăng ký tài khoản khách hàng
  * @param {String} name 

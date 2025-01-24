@@ -5,13 +5,13 @@ const express = require('express');
 const router = express.Router();
 
 // controller
-const AuthController = require('../../controllers/client/auth.controller');
+const userController = require('../../controllers/client/user.controller');
 
 // helper
 const asyncHandler = require('../../helpers/asyncHandler.helper');
 
 // [POST]
-router.post('/sign-up', asyncHandler(AuthController.signUp));
+router.post('/sign-up', asyncHandler(userController.signUp));
 
 
 // exports

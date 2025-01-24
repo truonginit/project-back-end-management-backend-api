@@ -1,0 +1,1 @@
+2025-01-24 13:40:51 - ERROR - POST /user/sign-up - 0fd8644a-2810-4de7-a5db-7e94f71586bc - Time response: 0ms - {"message":"Error: Email is exists","module":"at UserService.signUp ","file":"\\user.service.js:25:32"}
