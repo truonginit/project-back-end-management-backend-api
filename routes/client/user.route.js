@@ -12,7 +12,7 @@ const asyncHandler = require('../../helpers/asyncHandler.helper');
 
 // [POST]
 router.post('/sign-up', asyncHandler(userController.signUp));
-
+router.post('/login', asyncHandler(userController.login));
 
 // exports
 module.exports = router;

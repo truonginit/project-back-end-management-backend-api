@@ -1,2 +1,8 @@
 2025-01-24 13:40:51 - INFO - POST /user/sign-up - 93a78627-c05d-4f01-87ad-24ee07acf5cc - Request To Server - {"body":{"email":"giangtruong100702@gmail.com","password":"matKhauSieuManh"}}
 2025-01-24 13:40:51 - ERROR - POST /user/sign-up - 0fd8644a-2810-4de7-a5db-7e94f71586bc - Time response: 0ms - {"message":"Error: Email is exists","module":"at UserService.signUp ","file":"\\user.service.js:25:32"}
+2025-01-24 13:49:00 - INFO - POST /user/login - 0fee2c1c-abd0-4ecd-a296-f4fa26c9cd75 - Request To Server - {"body":{"email":"giangtruong100702@gmail.com","password":"matKhauSieuManh"}}
+2025-01-24 13:49:00 - ERROR - POST /user/login - 53f21601-c496-4d7c-959f-98c76d02485e - Time response: NaNms - {"message":"ReferenceError: newUser is not defined","module":"at UserService.login ","file":"\\user.service.js:87:22"}
+2025-01-24 13:49:26 - INFO - POST /user/login - c0f1ae6f-c254-47f3-9a38-96c5fb52ae2d - Request To Server - {"body":{"email":"giangtruong100702@gmail.com","password":"matKhauSieuManh"}}
+2025-01-24 13:52:52 - INFO - POST /user/login - 6ce09470-0ec2-443b-936d-d702cb36302b - Request To Server - {"body":{"email":"giangtruong100702@gmail.com","password":"matKhauSieuManh"}}
+2025-01-24 13:52:52 - ERROR - POST /user/login - 2845fe39-26c9-43cd-93cb-d6064b4f7023 - Time response: 2ms - {"message":"Error: Your status is pending","module":"at UserService.login ","file":"\\user.service.js:81:52"}
+2025-01-24 13:53:19 - INFO - POST /user/login - 754dbd4d-484c-46c6-afbc-cb6c44b0c211 - Request To Server - {"body":{"email":"giangtruong100702@gmail.com","password":"matKhauSieuManh"}}
