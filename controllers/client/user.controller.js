@@ -1,5 +1,6 @@
 // service
 const UserService = require('../../services/user.service');
+const MailService = require('../../services/mail.service');
 
 // core response
 const { SuccessResponse } = require('../../core/success.response');
@@ -35,6 +36,10 @@ module.exports.signUp = async (req, res, next) => {
  * @return {JSON}
 */
 module.exports.login = async (req, res, next) => {
+    // // test chức năng gửi mail
+    // await MailService.sendToOneRecipient({ toEmail: req.body.email });
+
+    // -----
     new SuccessResponse({
         message: 'Đăng nhập tài khoản User thành công',
         metadata: await UserService.login(req.body)
