@@ -14,6 +14,7 @@ const asyncHandler = require('../../helpers/asyncHandler.helper');
 router.post('/sign-up', asyncHandler(userController.signUp));
 router.post('/login', asyncHandler(userController.login));
 router.post('/forgot-password', asyncHandler(userController.forgotPassword));
+router.post('/verify-otp', asyncHandler(userController.verifyOtp));
 
 // exports
 module.exports = router;

@@ -53,3 +53,12 @@ module.exports.forgotPassword = async (req, res, next) => {
         metadata: await UserService.forgotPassword(req.body)
     }).send(res);
 }
+
+// [POST] /user/verify-otp
+module.exports.verifyOtp = async (req, res, next) => {
+    new SuccessResponse({
+        message: 'Nhập mã OTP thành công',
+        metadata: await UserService.verifyOtp(req.body)
+    }).send(res);
+}
+// [POST] /user

@@ -17,6 +17,7 @@ const ONE_MINUTES = 60;
 const otpSchema = new mongoose.Schema({
     otp_code: { type: String, required: true },
     otp_email: { type: String, required: true },
+    otp_status: { type: String, default: 'pending', required: true, enum: ['pending', 'used']},
     expireAt: {
         type: Date,
         default: Date.now,

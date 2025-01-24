@@ -5,7 +5,7 @@ const SettingGeneralModel = require('../models/setting-general.model');
 const { 
     createNewInfo,
     updateInfo
-} = require('../models/repositories/setting-general.model');
+} = require('../models/repositories/setting-general.repo');
 
 // service
 class SettingGeneralService {

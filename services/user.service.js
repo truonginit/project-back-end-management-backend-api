@@ -8,12 +8,14 @@ const KeyStoreService = require('./keyStore.service');
 
 // repo
 const {
-    CheckEmailExists
-} = require('../models/repositories/user.model');
+    CheckEmailExists,
+    FindUserById
+} = require('../models/repositories/user.repo');
 
 // package
 const bcrypt = require('bcrypt');
 const SALT_ROUNDS = 10;
+const jwt = require('jsonwebtoken');
 
 // require core response
 const { BadRequestError, NotFoundError } = require('../core/error.response');
@@ -166,7 +168,7 @@ class UserService {
     
     /**
      * @description Quên mật khẩu => gửi OTP qua mail
-     * @param {*} param0 
+     * @param {String} email 
      * @returns 
      */
     static forgotPassword = async ({ email }) => {
@@ -178,7 +180,7 @@ class UserService {
         if(isEmail.user_status !== 'active') throw new BadRequestError(`Your status is ${isEmail.user_status}`);
         
         // 2. Check xem với email này đã có OTP nào chưa. Nếu có thì xóa cái OTP cũ
-        await OtpModel.deleteOne({ otp_email: email });
+        // await OtpModel.deleteOne({ otp_email: email });  // cái này gặp bất cập từ từ
 
         // 3. Tạo mã OTP và Lưu OTP vào DB
         const otp = generateRandomNumString(6);
@@ -187,7 +189,47 @@ class UserService {
         // 4. Gửi mail OTP
         await MailService.sendToOneRecipient({ toEmail: email, subject: 'Mã OTP Xác Nhận', content: `Mã OTP: ${otp}` });
 
-        return otp;
+        const fieldForPick = [
+            'user_email',
+            '_id'
+        ];
+        return {
+            user: pickFieldInObject({ object: isEmail, field: fieldForPick }),  // cứ response lại cho bên FE rồi họ sẽ xử lý
+            otp
+        };
+    }
+
+    /**
+     * @description Nhập OTP để xác thực
+     * @param {String} userId 
+     * @param {String} email 
+     * @param {String} otp 
+     * @returns 
+     */
+    static verifyOtp = async ({ userId, email, otp }) => {
+        // check xem email có hợp lệ không
+        const foundEmail = await FindUserById({ userId, isLean: false });
+        if(foundEmail.user_email !== email ) throw new BadRequestError(`Email issn't valid`);
+
+        // check xem mã otp có tồn tại không
+        const isOtp = await OtpModel.findOne({ otp_code: otp, otp_email: foundEmail.user_email });
+
+        if(isOtp.otp_status === 'used') throw new BadRequestError(`Status of OTP is ${isOtp.otp_status}`);  // đã sử dụng nên không thể dùng nữa
+        if(!isOtp) throw new BadRequestError('Otp is not valid');
+
+        // nếu xác thực OTP thành công => đổi trạng thái mã OTP
+        isOtp.otp_status = 'used';
+        await isOtp.save();
+
+        // return
+        const fieldForPick = [
+            'user_email',
+            '_id'
+        ];
+        return {
+            user: pickFieldInObject({ object: foundEmail, field: fieldForPick }), // cứ response lại cho bên FE rồi họ sẽ xử lý
+            otp
+        }; 
     }
 }
 

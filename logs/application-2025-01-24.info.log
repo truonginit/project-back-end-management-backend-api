@@ -34,3 +34,4 @@
 2025-01-24 19:47:20 - INFO - POST /user/forgot-password - cbca890c-e239-465c-a756-2120b1d1c8dd - Request To Server - {"body":{"email":"giangtruong100702@gmail.com"}}
 2025-01-24 19:47:42 - INFO - POST /user/forgot-password - 06196c4c-0220-4712-aa49-c440e7e6b078 - Request To Server - {"body":{"email":"giangtruong100702@gmail.com"}}
 2025-01-24 19:51:17 - INFO - POST /user/forgot-password - aba3044c-d1f9-4e1c-9636-cdfd4c28968b - Request To Server - {"body":{"email":"giangtruong100702@gmail.com"}}
+2025-01-24 20:04:44 - INFO - POST /user/forgot-password - 8cdf2677-9456-410a-ad5c-873898549c10 - Request To Server - {"body":{"email":"giangtruong100702@gmail.com"}}
