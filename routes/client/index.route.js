@@ -4,6 +4,7 @@
 
 // router
 const identifyRouter = require('./identify.route');
+const cartRouter = require('./cart.route');
 
 // helper
 const asyncHandler = require('../../helpers/asyncHandler.helper');
@@ -23,4 +24,6 @@ module.exports = ( app ) => {
     // -------------- identify: quên mật khẩu -------------- //
     app.use('/identify', identifyRouter);
     // -------------- end identify -------------- //
+
+    app.use('/cart', cartRouter);
 }
