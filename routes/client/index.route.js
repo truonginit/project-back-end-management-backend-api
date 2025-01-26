@@ -3,15 +3,24 @@
 */
 
 // router
-const userRouter = require('./user.route');
+const identifyRouter = require('./identify.route');
 
 // helper
 const asyncHandler = require('../../helpers/asyncHandler.helper');
 
+// controller
+const AccessController = require('../../controllers/client/access.controller');
+
 module.exports = ( app ) => {
 
     // app.use(pushToLogDiscord);      // gửi log lên discord
+    
+    // -------------- access: đăng ký, đăng nhập, đăng xuất -------------- //
+    app.post('/sign-up', AccessController.signUp);
+    app.post('/login', AccessController.login);
+    // -------------- end access -------------- //
 
-    app.use('/user',   userRouter);
-
+    // -------------- identify: quên mật khẩu -------------- //
+    app.use('/identify', identifyRouter);
+    // -------------- end identify -------------- //
 }

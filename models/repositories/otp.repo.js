@@ -1,5 +1,5 @@
 // util
-const { generateRandomNumString } = require('../../models/repositories/otp.repo');
+const { generateRandomNumString } = require('../../utils/generate.util');
 
 
 // model
