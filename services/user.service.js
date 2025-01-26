@@ -183,7 +183,7 @@ class UserService {
         // 2. Check xem với email này đã có OTP nào chưa. Nếu có thì xóa cái OTP cũ
         // await OtpModel.deleteOne({ otp_email: email });  // cái này gặp bất cập từ từ
 
-        const newOtp = await createNewOtp({ email });   // 3. Tạo mã OTP và Lưu OTP vào DB
+        const newOtp = await createNewOtp({ email });   // 3. Tạo mã OTP và Lưu OTP vào DB, status's otp = 'pending'
         await MailService.sendToOneRecipient({ toEmail: email, subject: 'Mã OTP Xác Nhận', content: `Mã OTP: ${otp}` }); // 4. Gửi mail OTP
 
         const fieldForPick = [ 'user_email', '_id' ];
@@ -211,7 +211,7 @@ class UserService {
         if(isOtp.otp_status === 'used') throw new BadRequestError(`Status of OTP is ${isOtp.otp_status}`);  // đã sử dụng nên không thể dùng nữa
 
         // nếu xác thực OTP thành công => đổi trạng thái mã OTP
-        isOtp.otp_status = 'used';
+        isOtp.otp_status = 'used';  // used tức là xác nhận mã OTP này đã dùng.
         await isOtp.save();
 
         // return
@@ -220,6 +220,34 @@ class UserService {
             user: pickFieldInObject({ object: foundEmail, field: fieldForPick }), // cứ response lại cho bên FE rồi họ sẽ xử lý
             otp
         }; 
+    }
+
+    /**
+     * @description Reset lại / Mật khẩu mới 
+     * @param {*} param0 
+     * @returns 
+    */
+    static resetPassword = async({ userId, email, otp, password }) => {
+        // check xem email có hợp lệ không
+        const foundEmail = await FindUserById({ userId, unSelect: ['__v'], isLean: false });
+        if(foundEmail.user_email !== email ) throw new BadRequestError(`Email isn't valid`);
+
+        // kiểm tra mã otp
+        const isOtp = await OtpModel.findOne({ otp_code: otp, otp_email: foundEmail.user_email });
+        if(!isOtp) throw new BadRequestError('Otp is not valid');
+        if(isOtp.otp_status === 'expired' || isOtp.otp_status === 'pending') 
+            throw new BadRequestError(`Status of OTP is ${isOtp.otp_status}`);  // mã đã sử dụng hoặc chưa sử dụng
+
+        // băm mật khẩu
+        const passwordHashed = bcrypt.genSaltSync(password, SALT_ROUNDS);
+        foundEmail.user_password = passwordHashed;
+        await foundEmail.save();
+
+        // return
+        const fieldForPick = [ 'user_email', '_id' ];
+        return {
+            user: pickFieldInObject({ object: foundEmail, field: fieldForPick })    // done
+        }
     }
 }
 

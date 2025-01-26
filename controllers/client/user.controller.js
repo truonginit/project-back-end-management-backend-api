@@ -46,7 +46,7 @@ module.exports.login = async (req, res, next) => {
     }).send(res);
 }
 
-// [POST] /user/forgot-password
+// [POST] /user/password/forgot-password
 module.exports.forgotPassword = async (req, res, next) => {
     new SuccessResponse({
         message: 'Quên mật khẩu',
@@ -54,7 +54,7 @@ module.exports.forgotPassword = async (req, res, next) => {
     }).send(res);
 }
 
-// [POST] /user/verify-otp
+// [POST] /user/password/verify-otp
 module.exports.verifyOtp = async (req, res, next) => {
     new SuccessResponse({
         message: 'Nhập mã OTP thành công',

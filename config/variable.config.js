@@ -4,6 +4,7 @@
 
 module.exports = {
     PATH_ADMIN: '/admin', // cấu hình cho đường dẫn admin, example: http://localhost:3000/admin/...
+    PATH_PASSWORD: '/password'  // cấu hình cho các chức năng về password, example:  http://localhost:3000/user/password
 }
 
 

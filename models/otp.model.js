@@ -17,7 +17,11 @@ const ONE_MINUTES = 60;
 const otpSchema = new mongoose.Schema({
     otp_code: { type: String, required: true },
     otp_email: { type: String, required: true },
-    otp_status: { type: String, default: 'pending', required: true, enum: ['pending', 'used']},
+
+    // pending: đang chờ nhập mã
+    // used: đã được nhập mã => tiến tới reset mật khẩu
+    // expired: đã đổi mật khẩu và không dùng được nữa
+    otp_status: { type: String, default: 'pending', required: true, enum: ['pending', 'used', 'done']}, 
     expireAt: {
         type: Date,
         default: Date.now,
