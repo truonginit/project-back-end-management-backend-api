@@ -12,6 +12,7 @@ const asyncHandler = require('../../helpers/asyncHandler.helper');
 
 // [POST]
 router.post('/add', asyncHandler(cartController.addProductToCart));
+router.post('/remove-item', asyncHandler(cartController.removeProductFromCart));
 
 // exports
 module.exports = router;

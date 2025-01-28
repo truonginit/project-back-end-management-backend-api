@@ -26,7 +26,7 @@ module.exports.findCartWithUserId = async ({ userId, status = "active", unSelect
 */
 module.exports.addToCart = async (cart, { userId, productId, quantity, price }) => {
     const filter = {
-        _id: foundCart?.id,
+        _id: cart?.id,
         cart_userId: parseObjectIdMongoose(userId),
         cart_status: "active"
     }
@@ -39,7 +39,7 @@ module.exports.addToCart = async (cart, { userId, productId, quantity, price }) 
                 product_price:  parseInt(price)
             }
         },
-        '$inc': { cart_count_products: 1 }
+        '$inc': { cart_count_products: quantity }
     }
 
     const options = {
@@ -48,4 +48,29 @@ module.exports.addToCart = async (cart, { userId, productId, quantity, price }) 
     }
     
     return await CartModel.findOneAndUpdate(removeFieldNullOrUndefined(filter), update, options);   
+}
+
+/**
+ * @description Xóa sản phẩm khỏi giỏ hàng
+ * @param {*} param0 
+ * @returns 
+ */
+module.exports.removeItemFromCart = async ({ cartId, userId, productId }) => {
+    const filter = {
+        _id: parseObjectIdMongoose(cartId),
+        cart_userId: parseObjectIdMongoose(userId),
+        cart_status: "active"
+    }
+    
+    const update = {
+        $pull: { 
+            cart_products: {
+                product_id: parseObjectIdMongoose(productId)
+            }
+        },
+        // $inc: { cart_count_products: -10 }
+    }
+
+    const options = { upsert: false, new: true }
+    return await CartModel.updateOne(filter, update, options);
 }
