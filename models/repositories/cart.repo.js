@@ -2,7 +2,7 @@
 const CartModel = require('../cart.model');
 
 // util
-const { parseObjectIdMongoose, removeFieldNullOrUndefined } = require('../../utils/index.util');
+const { parseObjectIdMongoose, removeFieldNullOrUndefined, unSelectFieldInMongoose } = require('../../utils/index.util');
 const { filter } = require('lodash');
 
 /**
@@ -119,10 +119,9 @@ module.exports.updateQuantityItemInCart = async({cartId, productId, quantity }) 
  * @param {*} param0 
  * @returns 
  */
-module.exports.removeItemFromCart = async ({ cartId, userId, productId }) => {
+module.exports.removeItemFromCart = async ({ cartId, productId, quantity }) => {
     const filter = {
         _id: parseObjectIdMongoose(cartId),
-        cart_userId: parseObjectIdMongoose(userId),
         cart_status: "active"
     }
     
@@ -133,11 +132,23 @@ module.exports.removeItemFromCart = async ({ cartId, userId, productId }) => {
             }
         },
         $inc: { 
-            
+            cart_count_products: -quantity
         }
         // $inc: { cart_count_products: -10 }
     }
 
     const options = { upsert: false, new: true }
-    return await CartModel.updateOne(filter, update, options);
+    return await CartModel.findOneAndUpdate(filter, update, options);
+}
+
+module.exports.getInfoCart = async ({ cartId, userId, status = "active" , unSelect = ['__v'], isLean = true }) => {
+    const filter = {
+        _id: parseObjectIdMongoose(cartId),
+        cart_userId: parseObjectIdMongoose(userId),
+        cart_status: status
+    };
+
+    return await CartModel.findOne(removeFieldNullOrUndefined(filter))
+                          .select(unSelectFieldInMongoose(unSelect))
+                          .lean(isLean)
 }

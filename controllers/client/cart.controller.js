@@ -4,6 +4,18 @@ const CartService = require('../../services/cart.service');
 // core response 
 const { SuccessResponse } = require('../../core/success.response');
 
+// [GET] /cart/detail/:id
+module.exports.getInfoCart = async (req, res, next) => {
+    new SuccessResponse({
+        message: 'Lấy thông tin chi tiết giỏ hàng',
+        metadata: await CartService.getInfoCart({
+            // userId: req.user.userId, // chưa làm cái auth nên không check vậy được
+            ...req.body,
+            cartId: req.params.id
+        })
+    }).send(res);
+}
+
 // [POST] /cart/add
 module.exports.addProductToCart = async (req, res, next) => {
     new SuccessResponse({

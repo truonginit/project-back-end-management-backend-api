@@ -16,7 +16,8 @@ const cartSchema = new mongoose.Schema({
 
     // danh sách sản phẩm trong giỏ hàng
     cart_products: [
-        {
+        {   
+            _id : false,
             product_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Product', required: true},
             product_quantity: { type: Number, min: 1, required: true },
             product_price:  { type: Number, required: true }    // giá tiền của 1 sản phẩm thôi nha

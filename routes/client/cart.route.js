@@ -10,9 +10,13 @@ const cartController = require('../../controllers/client/cart.controller');
 // helper
 const asyncHandler = require('../../helpers/asyncHandler.helper');
 
+// [GET]
+router.get('/detail/:id', asyncHandler(cartController.getInfoCart));
+
+
 // [POST]
 router.post('/add', asyncHandler(cartController.addProductToCart));
-router.post('/remove-item', asyncHandler(cartController.removeProductFromCart));
+router.post('/remove', asyncHandler(cartController.removeProductFromCart));
 
 // exports
 module.exports = router;
