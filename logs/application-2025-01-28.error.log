@@ -1,0 +1,1 @@
+2025-01-28 18:03:26 - ERROR - POST /admin/products/create - b9a6a6eb-05e1-444a-bb05-632a48657524 - Time response: NaNms - {"message":"TokenExpiredError: jwt expired","module":"at D:\\Software\\Project\\management-backend-api\\node_modules\\jsonwebtoken\\verify.js:190:21"}

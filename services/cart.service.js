@@ -6,7 +6,14 @@
 const CartModel = require('../models/cart.model');
 
 // repo
-const { findCartWithUserId, addToCart, removeItemFromCart } = require('../models/repositories/cart.repo');
+const { 
+    findCartWithUserId, 
+    findProductExistsInCart,
+    createNewCart, 
+    addItemToCart, 
+    removeItemFromCart,
+    updateQuantityItemInCart
+} = require('../models/repositories/cart.repo');
 const { parseObjectIdMongoose, removeFieldNullOrUndefined } = require('../utils/index.util');
 
 // service
@@ -17,12 +24,20 @@ class CartService {
      * @param {*} param0 
     */
     static addProductToCart = async ({ userId, productId, quantity, price }) => {
-        // 1. Tìm giỏ hàng với userId
-        const foundCart = await findCartWithUserId({ userId, isLean: false});
-        
-        // NẾU TÌM THẤY GIỎ HÀNG => ĐẨY SẢN PHẨM VÀO
-        // NẾU KHÔNG TÌM THẤY GIỎ HÀNG => TẠO GIỎ HÀNG MỚI => ĐẨY SẢN PHẨM VÀO
-        return await addToCart(foundCart, { userId, productId, quantity, price });
+        const foundCart = await findCartWithUserId({ userId, isLean: false}); // 1. Tìm giỏ hàng với userId
+        const cartId = foundCart?.id;
+
+        if(!foundCart) return await createNewCart({ userId, productId, quantity, price });  // NẾU KHÔNG TÌM THẤY GIỎ HÀNG => TẠO GIỎ HÀNG MỚI => ĐẨY SẢN PHẨM VÀO
+
+        if(foundCart.cart_count_products === 0) // NẾU TÌM THẤY GIỎ HÀNG => GIỎ HÀNG RỖNG => THÊM VÀO GIỎ HÀNG
+            return await addItemToCart({ cartId, userId, productId, quantity, price });
+
+        //  ------------------------------------------ //
+        const foundProductExists = await findProductExistsInCart({ cartId, productId, isLean: false }); // check xem trong giỏ hàng đã tồn tại sản phẩm này chưa
+
+        if(!foundProductExists) return await addItemToCart({ cartId, userId, productId, quantity, price }); // nếu chưa tồn tại thì thêm vào giỏ hàng
+
+        return await updateQuantityItemInCart({ cartId, productId, quantity }); // nếu sản phẩm này đã tồn tại trong giỏ hàng thì update số lượng
     }
 
     /**
@@ -40,7 +55,6 @@ class CartService {
         console.log(`foundProductIncCart::`, foundProductInCart);
 
         return await removeItemFromCart({ cartId, userId, productId })
-        
     }
 }
 
