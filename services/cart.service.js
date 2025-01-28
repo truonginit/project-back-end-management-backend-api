@@ -13,7 +13,8 @@ const {
     addItemToCart, 
     removeItemFromCart,
     updateQuantityItemInCart,
-    getInfoCart
+    getInfoCart,
+    updateQuantityOfItem
 } = require('../models/repositories/cart.repo');
 const { parseObjectIdMongoose, removeFieldNullOrUndefined } = require('../utils/index.util');
 
@@ -24,8 +25,8 @@ class CartService {
      * @description Xem giỏ hàng
      * @param {*} param0 
     */ 
-    static getInfoCart = async ({ cartId, userId }) => {
-        return await getInfoCart({ cartId, userId })
+    static getInfoCart = async ({ userId }) => {
+        return await getInfoCart({ userId })
     }
 
     /**
@@ -63,6 +64,26 @@ class CartService {
         }
 
         return foundProductExists;
+    }
+
+    /**
+     * @description Update số lượng sản phẩm của Item
+     * @param {*} quantity đây là giá trị quantity mới
+     * @param {*}  old_quantity đây là giá trị quantity cũ
+    */ 
+    static updateQuantityOfItem = async ({ cartId, productId, quantity, old_quantity }) => {
+        const new_quantity = quantity - old_quantity;
+
+        // trường hợp quantity = 0 => xóa khỏi giỏ hàng luôn 
+        if(quantity === 0) {
+            // quantity = 0 => tức muốn xóa khỏi đơn hàng
+            // old_quantity tức là giá trị cũ của sản phẩm đó trong đơn hàng
+            return await removeItemFromCart({ cartId, productId, quantity: old_quantity });
+        }
+
+        // trường hợp quantity ok
+        return await updateQuantityOfItem({ cartId, productId, quantity: new_quantity });
+
     }
 }
 

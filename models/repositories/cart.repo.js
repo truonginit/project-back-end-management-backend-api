@@ -143,7 +143,7 @@ module.exports.removeItemFromCart = async ({ cartId, productId, quantity }) => {
 
 module.exports.getInfoCart = async ({ cartId, userId, status = "active" , unSelect = ['__v'], isLean = true }) => {
     const filter = {
-        _id: parseObjectIdMongoose(cartId),
+        // _id: parseObjectIdMongoose(cartId),
         cart_userId: parseObjectIdMongoose(userId),
         cart_status: status
     };
@@ -151,4 +151,23 @@ module.exports.getInfoCart = async ({ cartId, userId, status = "active" , unSele
     return await CartModel.findOne(removeFieldNullOrUndefined(filter))
                           .select(unSelectFieldInMongoose(unSelect))
                           .lean(isLean)
+}
+
+
+module.exports.updateQuantityOfItem = async ({ cartId, productId, quantity }) => {
+    const filter = {
+        _id: parseObjectIdMongoose(cartId),
+        'cart_products.product_id': parseObjectIdMongoose(productId),
+        cart_status: 'active'
+    }
+
+    const update = {
+        $inc: { 
+            'cart_products.$.product_quantity': quantity,
+            cart_count_products: quantity
+        }
+    }
+
+    const options = { new: true };
+    return await CartModel.findOneAndUpdate(filter, update, options);
 }

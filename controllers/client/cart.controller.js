@@ -11,7 +11,7 @@ module.exports.getInfoCart = async (req, res, next) => {
         metadata: await CartService.getInfoCart({
             // userId: req.user.userId, // chưa làm cái auth nên không check vậy được
             ...req.body,
-            cartId: req.params.id
+            // cartId: req.params.id
         })
     }).send(res);
 }
@@ -27,11 +27,22 @@ module.exports.addProductToCart = async (req, res, next) => {
     }).send(res);
 }
 
-// [POST] /cart/remove-item
+// [POST] /cart/remove
 module.exports.removeProductFromCart = async (req, res, next) => {
     new SuccessResponse({
         message: 'Xóa sản phẩm khỏi giỏ hàng',
         metadata: await CartService.removeProductFromCart({
+            // userId: req.user.userId, // chưa làm cái auth nên không check vậy được
+            ...req.body
+        })
+    }).send(res);
+}
+
+// [POST] /cart/update
+module.exports.updateQuantityOfItem = async (req, res, next) => {
+    new SuccessResponse({
+        message: 'Cập nhật số lượng sản phẩm trong giỏ hàng',
+        metadata: await CartService.updateQuantityOfItem({
             // userId: req.user.userId, // chưa làm cái auth nên không check vậy được
             ...req.body
         })

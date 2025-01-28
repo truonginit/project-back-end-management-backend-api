@@ -11,12 +11,13 @@ const cartController = require('../../controllers/client/cart.controller');
 const asyncHandler = require('../../helpers/asyncHandler.helper');
 
 // [GET]
-router.get('/detail/:id', asyncHandler(cartController.getInfoCart));
+router.get('/', asyncHandler(cartController.getInfoCart));
 
 
 // [POST]
 router.post('/add', asyncHandler(cartController.addProductToCart));
 router.post('/remove', asyncHandler(cartController.removeProductFromCart));
+router.post('/update', asyncHandler(cartController.updateQuantityOfItem));
 
 // exports
 module.exports = router;
