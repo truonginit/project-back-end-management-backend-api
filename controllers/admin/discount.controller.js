@@ -14,3 +14,15 @@ module.exports.createNewDiscount = async (req, res, next) => {
         })
     }).send(res);
 }
+
+// [PATCH] /admin/discount/update-status/:id/:status
+module.exports.updateStatus = async (req, res, next) => {
+    new SuccessResponse({
+        message: 'Cập nhật trạng thái của status',
+        metadata: await DiscountService.updateStatus({
+            discountId: req.params.id,
+            status: req.params.status
+            
+        })
+    }).send(res);
+}

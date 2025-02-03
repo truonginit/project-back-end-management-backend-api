@@ -7,6 +7,7 @@ const {
     parseObjectIdMongoose,
     removeFieldNullOrUndefined
 } = require('../../utils/index.util');
+const { parse } = require('dotenv');
 
 /**
  * @description Check xem discount code đã tồn tại chưa
@@ -72,4 +73,15 @@ module.exports.createNewDiscount = async ({
         // create by
         discount_createBy: parseObjectIdMongoose(accountId)
     });
+}
+
+module.exports.findByDiscountById = async ({ discountId, status, isDeleted, unSelect = ['__v'], isLean = true}) => {
+    const filter = {
+        _id: parseObjectIdMongoose(discountId),
+        discount_status: status,
+        discount_isDeleted: isDeleted
+    }
+    return await DiscountModel.findOne(removeFieldNullOrUndefined(filter))
+                              .select(unSelectFieldInMongoose(unSelect))
+                              .lean(isLean)
 }

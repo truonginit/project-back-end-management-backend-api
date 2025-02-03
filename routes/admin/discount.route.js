@@ -26,7 +26,7 @@ router.post('/create', asyncHandler(discountController.createNewDiscount));
 
 
 // [PATCH]
-// router.patch('/update-status/:id/:status', asyncHandler(categoryController.updateStatus));
+router.patch('/update-status/:id/:status', asyncHandler(discountController.updateStatus));
 
 // [DELETE]
 // router.delete('/delete-soft/:id', asyncHandler(categoryController.deleteSoft));

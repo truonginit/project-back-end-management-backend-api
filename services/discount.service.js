@@ -8,7 +8,8 @@ const DiscountModel = require('../models/discount.model');
 // repo
 const {
     findDiscountCode,
-    createNewDiscount
+    createNewDiscount,
+    findByDiscountById
 } = require('../models/repositories/discount.repo');
 
 // core response
@@ -80,6 +81,23 @@ class DiscountService {
             end_date,
             accountId
         });
+    }
+
+    /**
+     * @description Cập nhật trạng thái của discount
+    */
+    static updateStatus = async ({ discountId, status }) => {
+        // check xem discount code này đã tồn tại chưa
+        const foundDiscount = await findByDiscountById({ discountId, isDeleted: false, isLean: false });
+        if(!foundDiscount) throw new BadRequestError('Discount Code is not exists'); 
+
+        // check status muốn update có hợp lý không
+        const StateOfStatus = ['active', 'inactive', 'pending'];
+        if(StateOfStatus.includes(status) === false) throw new BadRequestError('Status want to update is not valid');
+
+        foundDiscount.discount_status = status;
+        await foundDiscount.save();
+        return foundDiscount;
     }
 }
 
