@@ -14,7 +14,7 @@ const {
 
 // core response
 const { BadRequestError, NotFoundError } = require('../core/error.response');
-const { removeFieldNullOrUndefined } = require('../utils/index.util');
+const { removeFieldNullOrUndefined, parseObjectIdMongoose } = require('../utils/index.util');
 
 // service
 class DiscountService {
@@ -114,6 +114,21 @@ class DiscountService {
         // ...
 
         return await DiscountModel.find(removeFieldNullOrUndefined(filter)).lean(isLean);
+    }
+
+
+    static deleteSoft = async ({ discountId }) => {
+        const filter = { _id: parseObjectIdMongoose(discountId) }
+        const update = { discount_isDeleted: true }
+        
+        const result = await DiscountModel.updateOne(filter, update);
+        
+        const message = result ? 'Xóa mềm mã giảm giá thành công' : 'Xóa mềm mã giảm giá thất bại';
+
+        return {
+            message,
+            result
+        }
     }
 }
 

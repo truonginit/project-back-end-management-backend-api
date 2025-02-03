@@ -29,7 +29,7 @@ router.post('/create', asyncHandler(discountController.createNewDiscount));
 router.patch('/update-status/:id/:status', asyncHandler(discountController.updateStatus));
 
 // [DELETE]
-// router.delete('/delete-soft/:id', asyncHandler(categoryController.deleteSoft));
+router.delete('/delete-soft/:id', asyncHandler(discountController.deleteSoft));
 
 // exports
 module.exports = router;

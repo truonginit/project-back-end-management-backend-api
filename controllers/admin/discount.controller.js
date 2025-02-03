@@ -58,3 +58,19 @@ module.exports.updateStatus = async (req, res, next) => {
         })
     }).send(res);
 }
+
+// [DELETE] /admin/discount/delete-soft/:id
+module.exports.deleteSoft = async (req, res, next) => { 
+    const result = Object.assign(
+        { message: 'Xóa mềm 1 mã giảm giá' },
+        await DiscountService.deleteSoft({ discountId: req.params.id })
+    )
+    // new SuccessResponse({
+    //     message: 'Xóa mềm 1 mã giảm giá',
+    //     metadata: await DiscountService.updateStatus({
+    //         discountId: req.params.id,
+    //         status: req.params.status
+    //     })
+    // }).send(res);
+    new SuccessResponse(result).send(res);
+}

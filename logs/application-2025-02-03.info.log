@@ -10,3 +10,6 @@
 2025-02-03 20:11:24 - INFO - GET /admin/discounts/list/isPending - d237355a-7869-4d79-9b27-cf2ed1aa5106 - Request To Server - {}
 2025-02-03 20:15:33 - INFO - GET /admin/discounts/list/isActive - 8173ee58-cb43-4e4b-a498-0507c83c2b5b - Request To Server - {}
 2025-02-03 20:17:08 - INFO - GET /admin/discounts/list/isInactive - bb3b1f9a-9618-403b-80e2-4401032184f7 - Request To Server - {}
+2025-02-03 20:33:29 - INFO - DELETE /admin/discounts/delete-soft/679f36170c602f288ea96df3 - 2ef3e0f7-2dbb-4cf3-9a16-bd8805f1d8ea - Request To Server - {}
+2025-02-03 20:35:03 - INFO - DELETE /admin/discounts/delete-soft/679f36170c602f288ea96df3 - c3af32e4-04f6-4a88-aaeb-ec364c8f7612 - Request To Server - {}
+2025-02-03 20:35:58 - INFO - DELETE /admin/discounts/delete-soft/679f36170c602f288ea96df3 - 69b780ec-db16-4671-be7c-6b46837371b0 - Request To Server - {}
