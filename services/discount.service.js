@@ -130,6 +130,10 @@ class DiscountService {
             result
         }
     }
+
+    static getDiscountById = async ({ discountId, status, isDeleted, unSelect = ['__v'], isLean = true }) => {
+        return await findByDiscountById({ discountId });
+    }
 }
 
 // export

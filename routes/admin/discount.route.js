@@ -17,6 +17,7 @@ const router = express.Router();
 router.use('', asyncHandler(requireAuth));
 
 // [GET]
+router.get('/detail/:id', asyncHandler(discountController.getDiscountById));
 router.get('/pending/all', asyncHandler(discountController.getListDiscountPending));
 router.get('/active/all', asyncHandler(discountController.getListDiscountActive));
 router.get('/inactive/all', asyncHandler(discountController.getListDiscountInActive));

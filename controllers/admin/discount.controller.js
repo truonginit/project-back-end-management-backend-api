@@ -4,6 +4,18 @@ const DiscountService = require('../../services/discount.service');
 // core response
 const { SuccessResponse } = require('../../core/success.response');
 
+// [GET] /admin/discount/detail/:id
+module.exports.getDiscountById = async (req, res, next) => {
+    new SuccessResponse({
+        message: 'Lấy thông tin chi tiết của mã giảm giá',
+        metadata: await DiscountService.getDiscountById({ 
+            discountId: req.params.id
+            // isDeleted => lấy từ query ? => /admin/discount/pending/all?isDeleted=false 
+            // mặc định isDeleted = false
+        })
+    }).send(res);
+}
+
 // [GET] /admin/discount/pending/all
 module.exports.getListDiscountPending = async (req, res, next) => {
     new SuccessResponse({
