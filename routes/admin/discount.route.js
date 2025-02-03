@@ -17,9 +17,9 @@ const router = express.Router();
 router.use('', asyncHandler(requireAuth));
 
 // [GET]
-// router.get('/', asyncHandler(categoryController.findAllCategory));
-// router.get('/detail/:id', asyncHandler(categoryController.findDetailCategoryById));
-// router.get('/tree-category', asyncHandler(categoryController.getTreeCategory));
+router.get('/pending/all', asyncHandler(discountController.getListDiscountPending));
+router.get('/active/all', asyncHandler(discountController.getListDiscountActive));
+router.get('/inactive/all', asyncHandler(discountController.getListDiscountInActive));
 
 // [POST]
 router.post('/create', asyncHandler(discountController.createNewDiscount));

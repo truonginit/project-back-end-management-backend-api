@@ -14,6 +14,7 @@ const {
 
 // core response
 const { BadRequestError, NotFoundError } = require('../core/error.response');
+const { removeFieldNullOrUndefined } = require('../utils/index.util');
 
 // service
 class DiscountService {
@@ -98,6 +99,21 @@ class DiscountService {
         foundDiscount.discount_status = status;
         await foundDiscount.save();
         return foundDiscount;
+    }
+
+    /**
+     * @description Danh sách discount có trạng thái là pending
+    */
+    static getListDiscount = async ({ status, isDeleted = false , page, limit, isLean = true }) => {
+        const filter = {
+            discount_status: status,
+            discount_isDeleted: isDeleted
+        }
+
+        // tính toán phân trang
+        // ...
+
+        return await DiscountModel.find(removeFieldNullOrUndefined(filter)).lean(isLean);
     }
 }
 
